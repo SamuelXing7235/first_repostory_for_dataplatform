@@ -1,0 +1,669 @@
+# config/project-manager.yaml
+# Clinical Data Analysis Platform - Project Manager Configuration
+
+---
+version: "1.0.0"
+last_updated: "2026-04-05"
+author: "Clinical Data Analysis Platform"
+description: "Project Manager coordinates all Skills and SOPs in the clinical data analysis platform"
+---
+
+# Project Manager Overview
+project_manager:
+  name: "Clinical Data Analysis Platform Project Manager"
+  role: "Workflow Orchestrator and Coordinator"
+  description: "Coordinates execution of Skills and SOPs, manages parameters, handles user interaction, and ensures transparency"
+
+# Core Responsibilities
+core_responsibilities:
+  - id: "CR001"
+    name: "Workflow Orchestration"
+    description: "Coordinate execution of Skills and SOPs"
+    tasks:
+      - "Manage dependencies between tasks"
+      - "Handle parallel and sequential execution"
+      - "Track workflow progress"
+      - "Handle error recovery and retry logic"
+  
+  - id: "CR002"
+    name: "Parameter Management"
+    description: "Collect and validate all required parameters"
+    tasks:
+      - "Collect and validate all required parameters"
+      - "Handle parameter dependencies"
+      - "Manage parameter passing between Skills"
+      - "Ensure parameter completeness before execution"
+  
+  - id: "CR003"
+    name: "Version and Technology Confirmation"
+    description: "Ensure mandatory confirmation of guideline versions and technology stacks"
+    tasks:
+      - "Ensure mandatory confirmation of guideline versions"
+      - "Ensure mandatory confirmation of technology stacks"
+      - "Coordinate version confirmation workflows"
+      - "Prevent automatic version/technology selection"
+  
+  - id: "CR004"
+    name: "User Interaction Management"
+    description: "Coordinate user interaction prompts and confirmations"
+    tasks:
+      - "Coordinate user interaction prompts"
+      - "Collect user confirmations"
+      - "Handle user preferences"
+      - "Ensure transparent communication"
+  
+  - id: "CR005"
+    name: "Information Transparency"
+    description: "Track all versions, guidelines, and technologies used"
+    tasks:
+      - "Track all versions used"
+      - "Track all guidelines referenced"
+      - "Track all technologies selected"
+      - "Provide complete audit trail"
+
+# Skill Inventory
+skill_inventory:
+  # Intelligence Skills (Skills 13-16)
+  intelligence_skills:
+    - skill_id: "SK013"
+      skill_name: "regulatory_guidelines_intelligence"
+      skill_file: "regulatory-guidelines-intelligence.yaml"
+      description: "Retrieves latest regulatory guidelines and standards"
+      capabilities:
+        - "Manage version information and acceptance periods"
+        - "Requires mandatory user confirmation for version selection"
+    
+    - skill_id: "SK014"
+      skill_name: "technology_trends_intelligence"
+      skill_file: "technology-trends-intelligence.yaml"
+      description: "Retrieves latest technology trends and best practices"
+      capabilities:
+        - "Manage version compatibility and recommendations"
+        - "Requires mandatory user confirmation for technology selection"
+    
+    - skill_id: "SK015"
+      skill_name: "statistical_methodology_intelligence"
+      skill_file: "statistical-methodology-intelligence.yaml"
+      description: "Retrieves latest statistical methodology developments"
+      capabilities:
+        - "Assess regulatory acceptance of methodologies"
+        - "Provide methodology recommendations"
+    
+    - skill_id: "SK016"
+      skill_name: "compliance_assessment_guideline_alignment"
+      skill_file: "compliance-assessment-guideline-alignment.yaml"
+      description: "Performs comprehensive compliance assessment"
+      capabilities:
+        - "Assess regulatory, technical, and methodology compliance"
+        - "Provide gap analysis and remediation recommendations"
+  
+  # Core Skills (Skills 1-12)
+  core_skills:
+    - skill_id: "SK001"
+      skill_name: "trial_design_statistical_consult"
+      skill_file: "trial-design-statistical-consult.yaml"
+    
+    - skill_id: "SK002"
+      skill_name: "sap_to_analysis_code_skeleton"
+      skill_file: "sap-to-analysis-code-skeleton.yaml"
+    
+    - skill_id: "SK003"
+      skill_name: "interactive_dashboard_framework_gen"
+      skill_file: "interactive-dashboard-framework-gen.yaml"
+    
+    - skill_id: "SK004"
+      skill_name: "cdisc_dataset_design"
+      skill_file: "cdisc-dataset-design.yaml"
+    
+    - skill_id: "SK005"
+      skill_name: "cdisc_validation_rule_application"
+      skill_file: "cdisc-validation-rule-application.yaml"
+    
+    - skill_id: "SK006"
+      skill_name: "statistical_results_review_interpret"
+      skill_file: "statistical-results-review-interpret.yaml"
+    
+    - skill_id: "SK007"
+      skill_name: "sap_compliance_statistical_validation"
+      skill_file: "sap-compliance-statistical-validation.yaml"
+    
+    - skill_id: "SK008"
+      skill_name: "clinical_data_qc_review"
+      skill_file: "clinical-data-qc-review.yaml"
+    
+    - skill_id: "SK009"
+      skill_name: "data_transformation_logic"
+      skill_file: "data-transformation-logic.yaml"
+    
+    - skill_id: "SK010"
+      skill_name: "tfl_generation_framework"
+      skill_file: "tfl-generation-framework.yaml"
+    
+    - skill_id: "SK011"
+      skill_name: "submission_package_assembly"
+      skill_file: "submission-package-assembly.yaml"
+    
+    - skill_id: "SK012"
+      skill_name: "clinical_trial_data_analyst"
+      skill_file: "clinical-trial-data-analyst.yaml"
+
+# Workflow Templates
+workflow_templates:
+  - workflow_id: "WF001"
+    workflow_name: "Trial Design and SAP Development"
+    description: "Complete workflow for trial design and SAP development"
+    skills_involved:
+      - skill_id: "SK001"
+        skill_name: "trial_design_statistical_consult"
+        calls:
+          - "regulatory_guidelines_intelligence"
+          - "statistical_methodology_intelligence"
+        required_parameters:
+          - parameter_name: "guideline_version"
+            source: "user_specified"
+            mandatory: true
+          - parameter_name: "regulatory_agency"
+            source: "user_specified"
+            mandatory: true
+    pre_execution_steps:
+      - step_id: "PES001"
+        description: "Check if guideline_version is provided"
+        action: "call_regulatory_guidelines_intelligence"
+        on_missing: "present_options_to_user"
+        wait_for_confirmation: true
+      - step_id: "PES002"
+        description: "Check if regulatory_agency is provided"
+        action: "request_user_specification"
+        wait_for_confirmation: true
+    user_interaction_points:
+      - interaction_type: "guideline_version_confirmation"
+        mandatory: true
+      - interaction_type: "regulatory_agency_specification"
+        mandatory: true
+    transparency_requirements:
+      - "Clearly state guideline version used"
+      - "Clearly state version specified by user"
+      - "Clearly state version constraints and acceptance periods"
+      - "Provide complete audit trail"
+  
+  - workflow_id: "WF002"
+    workflow_name: "SAP to Code Generation"
+    description: "Complete workflow for SAP to code generation"
+    skills_involved:
+      - skill_id: "SK002"
+        skill_name: "sap_to_analysis_code_skeleton"
+        calls:
+          - "technology_trends_intelligence"
+        required_parameters:
+          - parameter_name: "technology_stack"
+            source: "user_specified"
+            mandatory: true
+    pre_execution_steps:
+      - step_id: "PES003"
+        description: "Check if technology_stack is provided"
+        action: "call_technology_trends_intelligence"
+        on_missing: "present_options_to_user"
+        wait_for_confirmation: true
+    user_interaction_points:
+      - interaction_type: "technology_stack_confirmation"
+        mandatory: true
+    transparency_requirements:
+      - "Clearly state technology stack used"
+      - "Clearly state technology specified by user"
+      - "Clearly state version compatibility"
+      - "Provide complete audit trail"
+  
+  - workflow_id: "WF003"
+    workflow_name: "CDISC Dataset Design and Validation"
+    description: "Complete workflow for CDISC dataset design and validation"
+    skills_involved:
+      - skill_id: "SK004"
+        skill_name: "cdisc_dataset_design"
+        calls:
+          - "regulatory_guidelines_intelligence"
+          - "compliance_assessment_guideline_alignment"
+        required_parameters:
+          - parameter_name: "cdisc_standard_version"
+            source: "user_specified"
+            mandatory: true
+          - parameter_name: "regulatory_agency"
+            source: "user_specified"
+            mandatory: true
+      - skill_id: "SK005"
+        skill_name: "cdisc_validation_rule_application"
+        calls:
+          - "regulatory_guidelines_intelligence"
+          - "compliance_assessment_guideline_alignment"
+        required_parameters:
+          - parameter_name: "cdisc_standard_version"
+            source: "user_specified"
+            mandatory: true
+          - parameter_name: "regulatory_agency"
+            source: "user_specified"
+            mandatory: true
+    pre_execution_steps:
+      - step_id: "PES004"
+        description: "Check if cdisc_standard_version is provided"
+        action: "call_regulatory_guidelines_intelligence"
+        on_missing: "present_options_to_user"
+        wait_for_confirmation: true
+      - step_id: "PES005"
+        description: "Check if regulatory_agency is provided"
+        action: "request_user_specification"
+        wait_for_confirmation: true
+    user_interaction_points:
+      - interaction_type: "cdisc_standard_version_confirmation"
+        mandatory: true
+      - interaction_type: "regulatory_agency_specification"
+        mandatory: true
+      - interaction_type: "compliance_review"
+        mandatory: false
+    transparency_requirements:
+      - "Clearly state CDISC standard version used"
+      - "Clearly state version specified by user"
+      - "Clearly state compliance assessment results"
+      - "Provide complete audit trail"
+  
+  - workflow_id: "WF004"
+    workflow_name: "Statistical Results Review"
+    description: "Complete workflow for statistical results review"
+    skills_involved:
+      - skill_id: "SK006"
+        skill_name: "statistical_results_review_interpret"
+        calls:
+          - "regulatory_guidelines_intelligence"
+          - "statistical_methodology_intelligence"
+          - "compliance_assessment_guideline_alignment"
+        required_parameters:
+          - parameter_name: "guideline_version"
+            source: "user_specified"
+            mandatory: true
+          - parameter_name: "regulatory_agency"
+            source: "user_specified"
+            mandatory: true
+    pre_execution_steps:
+      - step_id: "PES006"
+        description: "Check if guideline_version is provided"
+        action: "call_regulatory_guidelines_intelligence"
+        on_missing: "present_options_to_user"
+        wait_for_confirmation: true
+      - step_id: "PES007"
+        description: "Check if regulatory_agency is provided"
+        action: "request_user_specification"
+        wait_for_confirmation: true
+    user_interaction_points:
+      - interaction_type: "guideline_version_confirmation"
+        mandatory: true
+      - interaction_type: "regulatory_agency_specification"
+        mandatory: true
+      - interaction_type: "results_interpretation_confirmation"
+        mandatory: false
+    transparency_requirements:
+      - "Clearly state guideline version used"
+      - "Clearly state version specified by user"
+      - "Clearly state methodology assessment results"
+      - "Clearly state compliance assessment results"
+      - "Provide complete audit trail"
+  
+  - workflow_id: "WF005"
+    workflow_name: "SAP Compliance Validation"
+    description: "Complete workflow for SAP compliance validation"
+    skills_involved:
+      - skill_id: "SK007"
+        skill_name: "sap_compliance_statistical_validation"
+        calls:
+          - "regulatory_guidelines_intelligence"
+          - "statistical_methodology_intelligence"
+          - "compliance_assessment_guideline_alignment"
+        required_parameters:
+          - parameter_name: "guideline_version"
+            source: "user_specified"
+            mandatory: true
+          - parameter_name: "regulatory_agency"
+            source: "user_specified"
+            mandatory: true
+    pre_execution_steps:
+      - step_id: "PES008"
+        description: "Check if guideline_version is provided"
+        action: "call_regulatory_guidelines_intelligence"
+        on_missing: "present_options_to_user"
+        wait_for_confirmation: true
+      - step_id: "PES009"
+        description: "Check if regulatory_agency is provided"
+        action: "request_user_specification"
+        wait_for_confirmation: true
+    user_interaction_points:
+      - interaction_type: "guideline_version_confirmation"
+        mandatory: true
+      - interaction_type: "regulatory_agency_specification"
+        mandatory: true
+      - interaction_type: "compliance_review"
+        mandatory: false
+      - interaction_type: "submission_readiness_assessment"
+        mandatory: false
+    transparency_requirements:
+      - "Clearly state guideline version used"
+      - "Clearly state version specified by user"
+      - "Clearly state comprehensive compliance assessment results"
+      - "Clearly state submission readiness assessment"
+      - "Provide complete audit trail"
+  
+  - workflow_id: "WF006"
+    workflow_name: "Interactive Dashboard Development"
+    description: "Complete workflow for interactive dashboard development"
+    skills_involved:
+      - skill_id: "SK003"
+        skill_name: "interactive_dashboard_framework_gen"
+        calls:
+          - "technology_trends_intelligence"
+        required_parameters:
+          - parameter_name: "frontend_technology"
+            source: "user_specified"
+            mandatory: true
+          - parameter_name: "backend_technology"
+            source: "user_specified"
+            mandatory: true
+    pre_execution_steps:
+      - step_id: "PES010"
+        description: "Check if frontend_technology and backend_technology are provided"
+        action: "call_technology_trends_intelligence"
+        on_missing: "present_options_to_user"
+        wait_for_confirmation: true
+    user_interaction_points:
+      - interaction_type: "technology_stack_confirmation"
+        mandatory: true
+      - interaction_type: "dashboard_requirements_confirmation"
+        mandatory: false
+    transparency_requirements:
+      - "Clearly state technology stack used"
+      - "Clearly state technology specified by user"
+      - "Clearly state version compatibility"
+      - "Provide complete audit trail"
+
+# Parameter Management Rules
+parameter_management:
+  required_parameters:
+    - parameter_name: "guideline_version"
+      applicable_skills: ["SK001", "SK004", "SK005", "SK006", "SK007"]
+      source: "user_specified"
+      mandatory: true
+      auto_select: false
+      examples:
+        - "ICH E9 1998"
+        - "ICH E9(R1) 2019"
+        - "CDISC SDTMIG 3.3"
+    
+    - parameter_name: "regulatory_agency"
+      applicable_skills: ["SK001", "SK004", "SK005", "SK006", "SK007"]
+      source: "user_specified"
+      mandatory: true
+      auto_select: false
+      examples:
+        - "FDA"
+        - "EMA"
+        - "PMDA"
+        - "NMPA"
+    
+    - parameter_name: "technology_stack"
+      applicable_skills: ["SK002"]
+      source: "user_specified"
+      mandatory: true
+      auto_select: false
+      examples:
+        - '{"language": "Python", "version": "3.11"}'
+    
+    - parameter_name: "frontend_technology"
+      applicable_skills: ["SK003"]
+      source: "user_specified"
+      mandatory: true
+      auto_select: false
+      examples:
+        - '{"framework": "React", "version": "18"}'
+    
+    - parameter_name: "backend_technology"
+      applicable_skills: ["SK003"]
+      source: "user_specified"
+      mandatory: true
+      auto_select: false
+      examples:
+        - '{"framework": "FastAPI", "version": "0.104"}'
+    
+    - parameter_name: "cdisc_standard_version"
+      applicable_skills: ["SK004", "SK005"]
+      source: "user_specified"
+      mandatory: true
+      auto_select: false
+      examples:
+        - '{"standard": "SDTMIG", "version": "3.3"}'
+
+## Parameter Acquisition Protocol
+
+**Step 1: Initial Parameter Collection**
+- Collect all parameters provided by user
+- Identify missing required parameters
+- Identify missing optional parameters
+
+**Step 2: Required Parameter Validation**
+- For each missing required parameter:
+  - Identify which intelligence Skill to call
+  - Call intelligence Skill to get available options
+  - Present options to user with clear information
+  - Request user to specify parameter
+  - Wait for user confirmation
+  - Document user's choice
+  - Document confirmation timestamp
+
+**Step 3: Optional Parameter Handling**
+- For missing optional parameters:
+  - Use default values if defined
+  - Request user specification if critical
+  - Document assumptions made
+
+**Step 4: Parameter Completeness Check**
+- Verify all required parameters are provided
+- Verify all parameters are valid
+- Document any assumptions or limitations
+- Proceed to workflow execution
+
+# User Interaction Protocol
+user_interaction_protocol:
+  interaction_principles:
+    - "Mandatory Confirmation: All version/technology selections require user confirmation"
+    - "Complete Information: Provide complete information before requesting confirmation"
+    - "Clear Options: Present clear, actionable options to user"
+    - "Transparency: Clearly state all constraints and implications"
+    - "Documentation: Document all user interactions and confirmations"
+  
+  interaction_templates:
+    - template_id: "version-confirmation-v1"
+      template_name: "Version/Technology Confirmation Template"
+      sections:
+        header:
+          title: "Version/Technology Confirmation Required"
+          subtitle: "User Needs to Specify Version"
+        context:
+          label: "Context"
+          description: "Brief explanation of what version/technology is needed and why"
+        available_options:
+          label: "Available Options"
+          description: "Present all available options with detailed information"
+        ways_to_specify:
+          label: "Ways to Specify"
+          type: "ordered_list"
+        additional_questions:
+          label: "Additional Questions"
+          type: "dynamic_questions"
+        important_notes:
+          label: "Important Notes"
+          type: "warning_list"
+        actions:
+          confirm_button: "Confirm Selection"
+          cancel_button: "Cancel"
+
+## Interaction Documentation
+For each user interaction, document:
+- Interaction timestamp
+- Options presented
+- User's choice
+- User's reasoning (if provided)
+- Confirmation received
+- Any assumptions made
+
+# Transparency Requirements
+transparency_requirements:
+  version_transparency:
+    - "Clearly state version name and number"
+    - "Clearly state version specified by user"
+    - "Clearly state version acceptance period"
+    - "Clearly state version constraints"
+    - "Clearly state any deprecated features"
+    - "Clearly state upgrade recommendations"
+  
+  technology_transparency:
+    - "Clearly state technology name and version"
+    - "Clearly state technology specified by user"
+    - "Clearly state version compatibility"
+    - "Clearly state any limitations"
+    - "Clearly state best practices followed"
+  
+  compliance_transparency:
+    - "Clearly state guideline/standard used"
+    - "Clearly state version used"
+    - "Clearly state assessment scope"
+    - "Clearly state compliance status"
+    - "Clearly state identified gaps"
+    - "Clearly state recommendations"
+  
+  audit_trail:
+    - "Document all parameters provided"
+    - "Document all parameters derived"
+    - "Document all Skills called"
+    - "Document all user interactions"
+    - "Document all confirmations received"
+    - "Document all decisions made"
+    - "Document all assumptions documented"
+
+## Compliance Transparency
+For all compliance assessments:
+- Clearly state guideline/standard used
+- Clearly state version used
+- Clearly state assessment scope
+- Clearly state compliance status
+- Clearly state identified gaps
+- Clearly state recommendations
+
+## Audit Trail
+Maintain complete audit trail including:
+- All parameters provided
+- All parameters derived
+- All Skills called
+- All user interactions
+- All confirmations received
+- All decisions made
+- All assumptions documented
+
+# Error Handling
+error_handling:
+  missing_required_parameter:
+    error: "Required parameter not provided"
+    action:
+      - "Identify missing parameter"
+      - "Call appropriate intelligence Skill"
+      - "Present options to user"
+      - "Request user specification"
+      - "Wait for confirmation"
+      - "Document user's choice"
+      - "Proceed with workflow"
+  
+  invalid_parameter_value:
+    error: "Parameter value is invalid"
+    action:
+      - "Identify invalid parameter"
+      - "Explain why it's invalid"
+      - "Provide valid options"
+      - "Request user to correct"
+      - "Wait for confirmation"
+      - "Document correction"
+      - "Proceed with workflow"
+  
+  version_not_available:
+    error: "Specified version not available"
+    action:
+      - "Call intelligence Skill to get available versions"
+      - "Explain why specified version is not available"
+      - "Present available options"
+      - "Request user to select alternative"
+      - "Wait for confirmation"
+      - "Document user's choice"
+      - "Proceed with workflow"
+  
+  technology_not_compatible:
+    error: "Specified technology not compatible"
+    action:
+      - "Identify compatibility issue"
+      - "Explain incompatibility"
+      - "Present compatible alternatives"
+      - "Request user to select alternative"
+      - "Wait for confirmation"
+      - "Document user's choice"
+      - "Proceed with workflow"
+
+# Quality Assurance
+quality_assurance:
+  pre_execution_checklist:
+    - "All required parameters are provided by user"
+    - "All required parameters are valid"
+    - "All version/technology selections are confirmed by user"
+    - "All user interactions are documented"
+    - "All transparency requirements are met"
+    - "Audit trail is initialized"
+  
+  post_execution_checklist:
+    - "All Skills executed successfully"
+    - "All outputs are generated"
+    - "All compliance assessments completed"
+    - "All user confirmations documented"
+    - "All transparency requirements met"
+    - "Complete audit trail maintained"
+    - "All recommendations provided"
+  
+  documentation_requirements:
+    - "Document all parameters (provided and derived)"
+    - "Document all Skills called and their outputs"
+    - "Document all user interactions and confirmations"
+    - "Document all decisions and rationale"
+    - "Document all assumptions and limitations"
+    - "Maintain complete audit trail"
+    - "Ensure complete transparency"
+
+# Integration Points
+
+## MCP Tool Integration
+All Skills can be exposed as MCP tools:
+- Tool name: [skill_name]
+- Parameters: [skill_parameters]
+- Returns: [skill_output]
+- Version confirmation: [handled by Project Manager]
+
+## External System Integration
+- Regulatory agency databases (via Skills 13, 16)
+- Technology repositories (via Skill 14)
+- Statistical methodology databases (via Skill 15)
+- Compliance databases (via Skill 16)
+
+# Future Enhancements
+
+## Planned Features
+1. Automated version update notifications
+2. Version compatibility matrix visualization
+3. Technology recommendation engine
+4. Compliance dashboard
+5. Audit trail visualization
+6. User preference learning
+
+## Scalability Considerations
+- Support for additional regulatory agencies
+- Support for additional technology stacks
+- Support for additional guideline types
+- Support for additional methodology domains
+- Support for additional compliance standards

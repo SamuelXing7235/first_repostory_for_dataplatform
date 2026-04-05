@@ -1,0 +1,575 @@
+---
+name: statistical_results_review_interpret
+description: "Reviews and interprets statistical analysis results from clinical trials, including TFL outputs, model outputs, and statistical summaries. It assesses the appropriateness of statistical methods applied, validates statistical assumptions, interprets p-values, confidence intervals, and effect sizes in clinical context, and provides professional statistical insights and recommendations."
+version: "1.0.0"
+author: "Senior Biostatistician Expert"
+tags: [statistical review, results interpretation, clinical significance, statistical methods, tfl review, model validation]
+---
+
+# Statistical Results Review and Interpretation Skill
+
+## Overview
+This skill provides comprehensive statistical review and interpretation of clinical trial analysis results. It combines senior biostatistician-level expertise with deep understanding of ICH E9 statistical principles, clinical trial design, and statistical programming to deliver professional assessment of statistical results, method appropriateness, and clinical significance. This skill is essential for ensuring statistical integrity, regulatory compliance, and meaningful interpretation of clinical trial findings.
+
+## Usage
+Use this skill when you need to:
+- Review TFL (Tables, Figures, Listings) outputs for statistical correctness
+- Interpret statistical results in clinical context
+- Assess appropriateness of statistical methods applied
+- Validate statistical assumptions and model diagnostics
+- Evaluate clinical significance vs statistical significance
+- Provide professional statistical insights and recommendations
+- Support regulatory submission preparation
+- Conduct statistical quality control and validation
+
+## Core Capabilities
+
+### Statistical Results Comprehensive Review
+- **TFL Output Review**: Systematically review tables, figures, and listings for:
+  - Statistical calculation accuracy (N, Mean, SD, Median, p-values)
+  - Proper application of statistical methods
+  - Correct handling of missing data
+  - Appropriate rounding and formatting
+  - Consistency across related TFLs
+- **Model Output Review**: Validate statistical model outputs including:
+  - ANCOVA model results and diagnostics
+  - Logistic regression coefficients and odds ratios
+  - Cox proportional hazards model outputs
+  - Mixed model results and variance components
+  - Model assumptions and goodness-of-fit
+- **Statistical Summary Review**: Assess summary statistics and descriptive analyses
+
+### Statistical Method Appropriateness Assessment
+- **Method Selection Validation**: Evaluate whether statistical methods are appropriate for:
+  - Data type and distribution characteristics
+  - Study design and analysis objectives
+  - Sample size and power considerations
+  - Regulatory expectations and guidelines
+- **Assumption Validation**: Verify statistical assumptions are met:
+  - Normality assumptions for parametric tests
+  - Homogeneity of variance
+  - Independence of observations
+  - Proportional hazards assumption for survival analysis
+  - Linearity assumptions for regression models
+- **Robustness Assessment**: Evaluate sensitivity to violations and robustness of methods
+
+### Statistical Results Clinical Interpretation
+- **P-value Interpretation**: Provide nuanced interpretation of p-values:
+  - Distinguish statistical vs clinical significance
+  - Consider multiple testing and Type I error
+  - Interpret in context of study design and power
+  - Address p-value limitations and controversies
+- **Confidence Interval Interpretation**: Interpret confidence intervals appropriately:
+  - Assess precision of estimates
+  - Evaluate clinical relevance of CI ranges
+  - Compare CIs across subgroups and timepoints
+  - Interpret non-overlapping CIs appropriately
+- **Effect Size Interpretation**: Provide clinical context for effect sizes:
+  - Cohen's d for continuous outcomes
+  - Odds Ratios and Risk Ratios for binary outcomes
+  - Hazard Ratios for time-to-event outcomes
+  - Number Needed to Treat (NNT) calculations
+  - Clinical relevance assessment
+
+### Advanced Statistical Analysis Review
+- **Subgroup Analysis Evaluation**: Assess subgroup analyses for:
+  - Pre-specified vs post-hoc nature
+  - Statistical power for subgroup comparisons
+  - Interaction test appropriateness
+  - Multiple comparison adjustments
+  - Clinical plausibility of subgroup effects
+- **Multiplicity Adjustment Review**: Evaluate multiplicity handling:
+  - Hierarchical testing procedures
+  - Bonferroni and other adjustment methods
+  - Family-wise error rate control
+  - False discovery rate considerations
+- **Missing Data Handling Assessment**: Review missing data approaches:
+  - Missing data mechanism assessment (MCAR, MAR, MNAR)
+  - Appropriateness of imputation methods
+  - Sensitivity analyses for missing data
+  - Impact on validity of conclusions
+
+### Statistical Programming and Data Integrity Review
+- **Code Review Assessment**: Evaluate statistical programming quality:
+  - Correct implementation of statistical methods
+  - Proper data handling and transformations
+  - Appropriate use of statistical procedures
+  - Code efficiency and maintainability
+- **Data Integrity Validation**: Verify data quality and consistency:
+  - Subject counts across analyses
+  - Treatment group balance
+  - Outlier identification and handling
+  - Data consistency checks
+
+### Regulatory and Compliance Assessment
+- **ICH E9 Compliance**: Verify compliance with ICH E9 statistical principles
+- **Regulatory Expectations**: Assess alignment with FDA/EMA statistical guidance
+- **Documentation Review**: Evaluate statistical methods documentation
+- **Submission Readiness**: Assess readiness for regulatory submission
+
+## Input Format
+
+### Required Parameters
+
+- **statistical_results** (required): Statistical analysis results
+  - File path or content of statistical results
+  
+- **guideline_version** (required): Regulatory guideline version
+  - Must be specified by user
+  - Examples: "ICH E9 1998", "ICH E9(R1) 2019"
+  - If not provided, must call regulatory_guidelines_intelligence first
+  
+- **regulatory_agency** (required): Target regulatory agency
+  - Examples: "FDA", "EMA", "PMDA", "NMPA"
+
+- **analysis_results_path**: Path to statistical analysis results (TFL outputs, model outputs, etc.)
+- **analysis_type**: Type of analysis being reviewed ("primary", "secondary", "safety", "exploratory")
+- **study_context**: JSON object with study context information
+  ```json
+  {
+  "study_design": "parallel",
+  "primary_endpoint": "Change from baseline in systolic blood pressure",
+  "sample_size": 240,
+  "treatment_groups": ["Treatment X", "Placebo"],
+  "statistical_method": "ANCOVA with baseline as covariate"
+  }
+  ```
+
+### Optional Parameters
+- **sap_path**: Path to Statistical Analysis Plan for compliance verification
+- **protocol_path**: Path to Protocol for context and objectives
+- **review_depth**: Level of review detail ("basic", "standard", "comprehensive")
+- **focus_areas**: Array of specific areas to focus on (e.g., ["primary_endpoint", "safety", "subgroup"])
+- **include_recommendations**: Whether to include actionable recommendations (default: true)
+- **methodology_context** (optional): Methodology context information
+  - Examples: {"trial_phase": "Phase III", "endpoint_type": "continuous"}
+
+## Output Format
+
+### Statistical Review Report Structure
+```json
+{
+"review_metadata": {
+"review_id": "STAT-REVIEW-2026-04-01-001",
+"review_date": "2026-04-01",
+"reviewer": "Senior Biostatistician AI Agent",
+"analysis_type": "primary",
+"tfls_reviewed": 15,
+"models_reviewed": 3,
+"overall_assessment": "statistically sound with minor recommendations",
+"guideline_version": "ICH E9 1998",
+"guideline_version_specified_by": "user",
+"regulatory_agency": "FDA"
+},
+"regulatory_considerations": {
+"guideline_used": "ICH E9 1998",
+"key_requirements": […],
+"recent_updates": […]
+},
+"methodology_assessment": {
+"methods_used": […],
+"regulatory_acceptance": {…},
+"best_practices": […]
+},
+"results_interpretation": {
+"primary_endpoint": {…},
+"secondary_endpoints": […],
+"sensitivity_analyses": […]
+},
+"compliance_assessment": {
+"overall_compliance_status": "compliant",
+"compliance_score": 0.92,
+"identified_gaps": [],
+"recommendations": […]
+},
+"user_interaction_required": true,
+"interaction_prompt": {
+"title": "Please confirm your guideline version",
+"context": "Based on your requirements, I recommend ICH E9 1998…",
+"available_options": […]
+},
+"statistical_correctness": {
+"calculations_verified": true,
+"methods_appropriate": true,
+"assumptions_met": true,
+"issues_identified": 2,
+"critical_issues": 0
+},
+"clinical_interpretation": {
+"primary_endpoint": {
+"statistical_significance": "p = 0.023, statistically significant",
+"clinical_significance": "Mean difference of 5.2 mmHg considered clinically meaningful",
+"effect_size": "Cohen's d = 0.43, moderate effect",
+"confidence_interval": "95% CI: 0.8 to 9.6 mmHg, excludes clinically important difference of 0",
+"interpretation": "Treatment demonstrates statistically significant and clinically meaningful reduction in systolic blood pressure"
+},
+"secondary_endpoints": [
+{
+"endpoint": "Diastolic blood pressure change",
+"statistical_significance": "p = 0.087, not statistically significant",
+"clinical_significance": "Trend favoring treatment but not conclusive",
+"interpretation": "Suggests potential benefit but requires confirmation in larger study"
+}
+]
+},
+"method_assessment": {
+"primary_analysis_method": "ANCOVA with baseline as covariate",
+"appropriateness": "Appropriate for continuous endpoint with baseline measurement",
+"assumptions": {
+"normality": "Assessed via residual plots, assumption reasonable",
+"homogeneity": "Levene's test p = 0.342, assumption met",
+"linearity": "Linear relationship between baseline and endpoint confirmed"
+},
+"recommendations": [
+"Consider sensitivity analysis without baseline covariate",
+"Document residual diagnostics in study report"
+]
+},
+"subgroup_analysis": {
+"total_subgroups_analyzed": 6,
+"pre_specified": 4,
+"post_hoc": 2,
+"significant_interactions": 1,
+"interpretation": "Significant treatment-by-age interaction (p = 0.031) suggests greater effect in older subjects",
+"cautions": [
+"Subgroup analyses should be interpreted cautiously",
+"Age interaction was pre-specified but study not powered for subgroup comparisons",
+"Findings should be confirmed in future studies"
+]
+},
+"safety_review": {
+"adverse_events": {
+"treatment_emergent_ae_rate": "Treatment: 23.5%, Placebo: 18.7%",
+"statistical_comparison": "p = 0.312, no significant difference",
+"clinical_interpretation": "Safety profile comparable between treatment groups"
+},
+"laboratory_parameters": {
+"clinically_significant_abnormalities": "No treatment-related patterns identified",
+"statistical_assessment": "No statistically significant differences in laboratory safety parameters"
+}
+},
+"recommendations": [
+{
+"priority": "high",
+"category": "statistical_method",
+"recommendation": "Consider adding sensitivity analysis for primary endpoint using different imputation methods for missing data",
+"rationale": "Missing data rate of 8.5% may impact results; multiple imputation would provide robustness assessment"
+},
+{
+"priority": "medium",
+"category": "reporting",
+"recommendation": "Include effect size measures (Cohen's d) in primary endpoint table",
+"rationale": "Effect sizes facilitate clinical interpretation and meta-analysis"
+},
+{
+"priority": "low",
+"category": "documentation",
+"recommendation": "Document statistical software version and procedure options used",
+"rationale": "Enhances reproducibility and regulatory compliance"
+}
+],
+"regulatory_compliance": {
+"ich_e9_compliance": "Compliant",
+"documentation_adequacy": "Adequate with minor enhancements recommended",
+"submission_readiness": "Ready with recommended improvements"
+}
+}
+```
+
+## Implementation Steps
+
+### 0. Pre-Review: Guideline Version Confirmation (NEW)
+Confirm guideline version with user before proceeding.
+
+**Constraints:**
+- You MUST confirm guideline_version is specified by user
+- If guideline_version is not provided:
+  - You MUST call `regulatory_guidelines_intelligence` with:
+    - guideline_type: "ICH E9"
+    - regulatory_agency: [user-specified agency]
+    - time_point: "current"
+  - You MUST present available versions to user
+  - You MUST request user to specify version
+  - You MUST NOT auto-select any version
+- You MUST document version confirmation
+- You MUST ensure transparency about version used
+
+### 1. Regulatory Guidelines Retrieval (NEW)
+Retrieve latest regulatory guidelines for statistical review.
+
+**Constraints:**
+- You MUST call `regulatory_guidelines_intelligence` with:
+  - guideline_type: "ICH E9"
+  - guideline_version: [user-specified version]
+  - regulatory_agency: [user-specified agency]
+- You MUST retrieve regulatory requirements for statistical review
+- You MUST identify any recent updates or changes
+- You MUST document regulatory considerations
+
+### 2. Statistical Methodology Intelligence (NEW)
+Retrieve latest statistical methodology for review context.
+
+**Constraints:**
+- You MUST call `statistical_methodology_intelligence` with:
+  - methodology_domain: "statistical_methods"
+  - application_context: [methodology_context]
+  - regulatory_agency: [user-specified agency]
+- You MUST retrieve latest methodology developments
+- You MUST assess regulatory acceptance of methodologies used
+- You MUST identify best practices for statistical review
+
+### 3. Analysis Results Loading and Context Understanding
+Load statistical results and understand study context.
+
+**Constraints:**
+- You MUST load all TFL outputs and model results
+- You MUST understand study design, objectives, and endpoints
+- You MUST identify statistical methods applied
+- You MUST review sample size and power calculations
+- You SHOULD understand treatment groups and randomization
+- You MUST NOT proceed without understanding analysis context
+
+### 3.1. Compliance Assessment (NEW)
+Assess compliance of statistical results with guidelines.
+
+**Constraints:**
+- You MUST call `compliance_assessment_guideline_alignment` with:
+  - assessment_target: "statistical_analysis"
+  - target_content: [statistical_results]
+  - guideline_type: "ICH E9"
+  - guideline_version: [user-specified version]
+  - regulatory_agency: [user-specified agency]
+  - assessment_scope: "methodology_only"
+- You MUST assess methodology compliance
+- You MUST identify any compliance gaps
+- You MUST provide remediation recommendations
+
+### 4. Statistical Correctness Verification
+Verify statistical calculations and method applications.
+
+**Constraints:**
+- You MUST verify statistical calculations (N, Mean, SD, p-values)
+- You MUST check statistical method applications are correct
+- You MUST validate model outputs and diagnostics
+- You SHOULD cross-check calculations across related TFLs
+- You MUST identify any calculation errors or inconsistencies
+- You MUST verify proper handling of missing data
+- You SHOULD assess rounding and formatting appropriateness
+
+### 5. Statistical Method Appropriateness Assessment
+Evaluate whether statistical methods are appropriate for the analysis.
+
+**Constraints:**
+- You MUST assess if statistical methods match data characteristics
+- You MUST verify methods align with study design and objectives
+- You SHOULD evaluate alternative methods and justify choices
+- You MUST check statistical assumptions are met or addressed
+- You MUST assess sample size adequacy for applied methods
+- You SHOULD consider regulatory expectations and guidelines
+- You MUST document any methodological concerns
+
+### 6. Statistical Assumption Validation
+Validate assumptions underlying statistical methods.
+
+**Constraints:**
+- For parametric tests, you MUST assess normality assumptions
+- You MUST check homogeneity of variance when applicable
+- You MUST verify independence of observations
+- For survival analysis, you MUST assess proportional hazards
+- For regression models, you MUST check linearity assumptions
+- You SHOULD review diagnostic plots and test statistics
+- You MUST document assumption violations and their impact
+
+### 7. Clinical Significance Interpretation
+Interpret statistical results in clinical context.
+
+**Constraints:**
+- You MUST distinguish statistical vs clinical significance
+- You MUST interpret p-values in context of study design and power
+- You SHOULD assess clinical relevance of effect sizes
+- You MUST interpret confidence intervals appropriately
+- You SHOULD consider minimal clinically important differences
+- You MUST provide balanced interpretation of findings
+- You SHOULD address limitations and uncertainties
+
+### 8. Effect Size and Clinical Impact Assessment
+Assess magnitude and clinical relevance of treatment effects.
+
+**Constraints:**
+- You MUST calculate and interpret appropriate effect sizes
+- You MUST assess clinical relevance of observed effects
+- You SHOULD compare effects to minimal clinically important differences
+- You MUST interpret odds ratios, hazard ratios, risk ratios appropriately
+- You SHOULD calculate Number Needed to Treat when relevant
+- You MUST consider precision of estimates (confidence intervals)
+- You SHOULD provide context for effect size interpretation
+
+### 9. Subgroup and Sensitivity Analysis Review
+Evaluate subgroup analyses and sensitivity analyses.
+
+**Constraints:**
+- You MUST identify pre-specified vs post-hoc subgroup analyses
+- You MUST assess statistical power for subgroup comparisons
+- You SHOULD evaluate interaction test appropriateness
+- You MUST review multiplicity adjustments for subgroup analyses
+- You MUST assess clinical plausibility of subgroup effects
+- You SHOULD caution against overinterpretation of post-hoc findings
+- You MUST review sensitivity analyses and their impact on conclusions
+
+### 10. Safety Data Statistical Review
+Review statistical analyses of safety data.
+
+**Constraints:**
+- You MUST review adverse event summary statistics
+- You MUST assess statistical comparisons of safety endpoints
+- You SHOULD identify any safety signals requiring attention
+- You MUST evaluate laboratory parameter analyses
+- You SHOULD assess vital signs and ECG analyses
+- You MUST verify safety data consistency with efficacy findings
+- You SHOULD identify any clinically relevant safety patterns
+
+### 11. Statistical Programming and Data Integrity Review
+Assess quality of statistical programming and data integrity.
+
+**Constraints:**
+- You MUST review statistical programming for correctness
+- You SHOULD assess code quality and maintainability
+- You MUST verify data handling and transformations
+- You SHOULD check for data consistency across analyses
+- You MUST identify any data integrity issues
+- You SHOULD assess reproducibility of analyses
+- You MUST verify proper documentation of methods
+
+### 12. Regulatory Compliance and Documentation Assessment
+Assess compliance with regulatory requirements and documentation adequacy.
+
+**Constraints:**
+- You MUST verify compliance with ICH E9 statistical principles
+- You SHOULD assess alignment with FDA/EMA guidance
+- You MUST evaluate statistical methods documentation
+- You SHOULD assess readiness for regulatory submission
+- You MUST identify any documentation gaps
+- You SHOULD provide recommendations for enhancement
+- You MUST ensure all statistical methods are clearly described
+
+### 13. Comprehensive Report Generation
+Generate comprehensive statistical review report with actionable recommendations.
+
+**Constraints:**
+- You MUST generate comprehensive review report
+- You MUST include assessment of statistical correctness
+- You MUST provide clinical interpretation of findings
+- You MUST document all identified issues with severity
+- You MUST provide actionable recommendations prioritized by importance
+- You SHOULD include effect size interpretations
+- You MUST assess regulatory compliance
+- You SHOULD provide balanced and objective assessment
+
+## Constraints and Best Practices
+
+### MUST Requirements
+- You MUST confirm guideline_version with user before proceeding
+- You MUST NOT auto-select any guideline version
+- You MUST call regulatory_guidelines_intelligence for latest guidelines
+- You MUST call statistical_methodology_intelligence for methodology context
+- You MUST call compliance_assessment_guideline_alignment for compliance assessment
+- You MUST provide complete transparency about versions used
+- You MUST ensure all interpretations align with specified guideline version
+- You MUST document all regulatory and methodological considerations
+- You MUST apply senior biostatistician-level expertise
+- You MUST follow ICH E9 statistical principles
+- You MUST distinguish statistical vs clinical significance
+- You MUST validate statistical assumptions
+- You MUST provide balanced interpretation of findings
+- You MUST identify methodological limitations
+- You MUST assess regulatory compliance
+- You MUST provide actionable recommendations
+
+### SHOULD Recommendations
+- You SHOULD consider alternative statistical approaches
+- You SHOULD provide context for interpretation
+- You SHOULD assess reproducibility of analyses
+- You SHOULD evaluate clinical relevance of findings
+- You SHOULD document all assumptions and limitations
+- You SHOULD provide references to statistical literature
+- You SHOULD consider multiple testing and multiplicity
+
+### MAY Options
+- You MAY suggest additional analyses
+- You MAY provide historical comparisons
+- You MAY identify potential publication strategies
+- YOU MAY suggest meta-analysis opportunities
+- YOU MAY provide guidance on data presentation
+
+## Error Handling
+
+### Common Issues and Solutions
+
+**Issue**: Statistical assumptions are violated
+- **Solution**: Document violation, assess impact, suggest alternative methods, recommend sensitivity analyses
+
+**Issue**: Sample size is inadequate for planned analyses
+- **Solution**: Document power limitations, interpret findings cautiously, suggest larger confirmatory study
+
+**Issue**: Multiple testing without adjustment
+- **Solution**: Identify multiplicity issues, assess Type I error inflation, recommend adjustment methods
+
+**Issue**: Inconsistent results across related analyses
+- **Solution**: Investigate sources of inconsistency, assess data quality, recommend resolution approach
+
+**Issue**: Clinical significance unclear
+- **Solution**: Consult clinical experts, reference literature, assess minimal clinically important differences
+
+## Integration Examples
+
+### Calling from SOP
+
+```markdown
+
+10. Statistical Results Review and Interpretation
+Conduct comprehensive statistical review of analysis results.
+
+Constraints:
+
+You MUST call statistical_results_review_interpret with analysis_results_path, analysis_type, and study_context
+You MUST review all TFL outputs for statistical correctness
+YOU MUST assess appropriateness of statistical methods applied
+YOU MUST interpret results in clinical context
+YOU MUST validate statistical assumptions
+YOU MAY suggest additional analyses or methodological improvements
+YOU MUST provide actionable recommendations prioritized by importance
+YOU MUST assess regulatory compliance and submission readiness
+```
+
+
+### MCP Tool Integration
+This skill can be exposed as an MCP tool with the following interface:
+- Tool name: `review_statistical_results`
+- Parameters: analysis_results_path, analysis_type, study_context, sap_path, review_depth
+- Returns: Comprehensive statistical review report with clinical interpretation and recommendations
+
+## Quality Assurance
+
+### Pre-Execution Checks
+- Verify analysis results are accessible and complete
+- Confirm study context information is provided
+- Validate that analysis type is clearly specified
+- Check that relevant SAP and Protocol are available if needed
+
+### Post-Execution Validation
+- Verify all TFLs were reviewed systematically
+- Confirm statistical calculations were verified
+- Validate that clinical interpretation is balanced
+- Ensure recommendations are specific and actionable
+- Check that regulatory compliance was assessed
+- Verify report is comprehensive and well-structured
+
+### Documentation Requirements
+- Maintain clear audit trail of review process
+- Document all statistical assessments and rationale
+- Preserve references to statistical literature and guidelines
+- Generate comprehensive review report
+- Provide clear recommendations with priorities
+- Ensure all limitations are documented
+
+...

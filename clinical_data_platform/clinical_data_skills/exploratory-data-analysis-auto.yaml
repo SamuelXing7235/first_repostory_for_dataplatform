@@ -1,0 +1,430 @@
+---
+name: exploratory_data_analysis_auto
+description: "Performs automated exploratory data analysis (EDA) on a given clinical dataset (e.g., SDTM or ADaM). It profiles data, identifies outliers, checks distributions, visualizes relationships, and generates a comprehensive EDA report."
+version: "1.0.0"
+author: "Clinical Data Analyst Expert"
+tags: [eda, data analysis, visualization, data quality, statistics, clinical data]
+---
+
+# Automated Exploratory Data Analysis Skill
+
+## Overview
+This skill performs comprehensive automated exploratory data analysis (EDA) on clinical trial datasets. It systematically profiles data quality, identifies outliers and anomalies, checks distributions, visualizes relationships between variables, and generates detailed, actionable EDA reports. This skill is essential for data quality assessment, database lock preparation, and initial data understanding before formal statistical analysis.
+
+## Usage
+Use this skill when you need to:
+- Perform initial data quality assessment after data receipt
+- Conduct database lock data review and blind data review
+- Identify data quality issues and outliers
+- Understand data distributions and patterns
+- Explore relationships between variables
+- Generate comprehensive data profiling reports
+- Support data cleaning and validation processes
+- Prepare for formal statistical analysis
+
+## Core Capabilities
+
+### Dataset Overview and Profiling
+- **Basic Statistics**: Calculate row count, column count, missing value percentages
+- **Variable Analysis**: Analyze each variable for type, unique values, missing patterns
+- **Data Quality Metrics**: Assess completeness, consistency, and accuracy
+- **Format Validation**: Check variable formats against expected standards
+- **Domain Structure**: Validate dataset structure against CDISC standards
+
+### Univariate Analysis
+- **Numerical Variables**: Calculate N, Mean, SD, Median, IQR, Min, Max
+- **Distribution Assessment**: Generate histograms and Q-Q plots
+- **Outlier Detection**: Identify statistical outliers using IQR method
+- **Normality Testing**: Perform Shapiro-Wilk and other normality tests
+- **Categorical Variables**: Calculate frequency distributions and percentages
+- **Pattern Recognition**: Identify unusual patterns or unexpected values
+
+### Bivariate and Multivariate Analysis
+- **Group Comparisons**: Generate boxplots and mean plots by treatment group
+- **Correlation Analysis**: Calculate correlation matrices and generate heatmaps
+- **Cross-Tabulation**: Create contingency tables for categorical variables
+- **Scatter Plots**: Generate scatter plots for continuous variable relationships
+- **Time Series Analysis**: Explore trends over time for longitudinal data
+- **Subgroup Analysis**: Analyze patterns across key subgroups
+
+### Data Quality Assessment
+- **Missing Data Analysis**: Identify patterns and extent of missing data
+- **Outlier Detection**: Flag potential outliers using statistical methods
+- **Consistency Checks**: Validate logical consistency across variables
+- **Range Validation**: Check values against expected ranges
+- **Format Validation**: Verify date, numeric, and character formats
+- **Duplicate Detection**: Identify duplicate records or subjects
+
+### Visualization and Reporting
+- **Comprehensive Charts**: Generate various plot types for data exploration
+- **Interactive Reports**: Create HTML reports with interactive visualizations
+- **Executive Summaries**: Provide high-level data quality summaries
+- **Detailed Findings**: Document specific issues and recommendations
+- **Trend Analysis**: Visualize patterns and trends over time
+- **Comparative Analysis**: Compare groups and timepoints
+
+## Input Format
+
+### Required Parameters
+- `dataset_path`: Path to the clinical dataset file (supports .xpt, .sas7bdat, .csv)
+- `output_report_path`: Path where the EDA report will be saved
+
+### Optional Parameters
+- `group_vars`: Array of grouping variables for comparative analysis (e.g., ["TRT01P", "SITEID"])
+- `time_vars`: Array of time-related variables for trend analysis (e.g., ["AVISITN", "ADY"])
+- `key_variables`: Array of key variables to focus analysis on
+- `exclude_vars`: Array of variables to exclude from analysis
+- `analysis_depth`: Level of analysis detail ("basic", "standard", "comprehensive")
+- `output_format`: Report format ("html", "pdf", "markdown")
+
+## Output Format
+
+### EDA Report Structure
+
+``` json
+{
+"report_metadata": {
+"dataset_name": "adsl.xpt",
+"analysis_date": "2026-04-01",
+"total_subjects": 245,
+"total_variables": 38,
+"analysis_duration_seconds": 127.5
+},
+"data_quality_summary": {
+"overall_quality_score": 0.87,
+"completeness_score": 0.92,
+"consistency_score": 0.85,
+"accuracy_score": 0.88,
+"critical_issues": 3,
+"warnings": 12,
+"recommendations": 8
+},
+"variable_analysis": [
+{
+"variable_name": "AGE",
+"variable_type": "numeric",
+"missing_count": 5,
+"missing_percentage": 2.04,
+"unique_values": 67,
+"statistics": {
+"n": 240,
+"mean": 54.3,
+"std": 12.1,
+"median": 55.0,
+"min": 18,
+"max": 82,
+"iqr": 18
+},
+"outliers_detected": 3,
+"distribution": "approximately_normal",
+"quality_issues": []
+},
+{
+"variable_name": "TRT01P",
+"variable_type": "categorical",
+"missing_count": 0,
+"missing_percentage": 0.0,
+"unique_values": 2,
+"categories": [
+{
+"value": "Placebo",
+"count": 122,
+"percentage": 49.8
+},
+{
+"value": "Treatment X",
+"count": 123,
+"percentage": 50.2
+}
+],
+"quality_issues": []
+}
+],
+"bivariate_analysis": {
+"treatment_comparisons": [
+{
+"variable": "AGE",
+"test_used": "t-test",
+"p_value": 0.234,
+"conclusion": "no significant difference between treatment groups"
+}
+],
+"correlations": [
+{
+"variable1": "AGE",
+"variable2": "WEIGHT",
+"correlation_coefficient": 0.45,
+"significance": "moderate positive correlation"
+}
+]
+},
+"data_quality_issues": [
+{
+"issue_id": "DQ-001",
+"severity": "high",
+"variable": "RACE",
+"description": "Unexpected category 'OTHER' with high frequency (15%)",
+"impact": "May affect subgroup analysis and interpretation",
+"recommendation": "Review with data management team, consider recoding"
+},
+{
+"issue_id": "DQ-002",
+"severity": "medium",
+"variable": "HEIGHT",
+"description": "5 outliers detected using IQR method",
+"impact": "May affect analysis results",
+"recommendation": "Verify with source documents, consider exclusion if data entry errors"
+}
+],
+"visualizations": {
+"histograms": ["AGE", "WEIGHT", "HEIGHT"],
+"boxplots": ["AGE_by_TRT01P", "WEIGHT_by_TRT01P"],
+"correlation_heatmap": "correlation_matrix.png",
+"missing_data_pattern": "missing_data_map.png"
+}
+}
+```
+
+
+### HTML Report Structure
+
+```html
+
+<!DOCTYPE html> <html> <head> <title>Exploratory Data Analysis Report - ADSL</title> <style> /* Report styling */ </style> </head> <body> <h1>Exploratory Data Analysis Report</h1> <h2>Dataset: ADSL (Subject-Level Analysis Dataset)</h2>
+<section id="executive-summary">
+    <h3>Executive Summary</h3>
+    <p>Overall Data Quality Score: 87/100</p>
+    <p>Total Subjects: 245</p>
+    <p>Total Variables: 38</p>
+    <div class="alert alert-warning">
+        <strong>3 Critical Issues Identified</strong>
+    </div>
+</section>
+
+<section id="data-quality">
+    <h3>Data Quality Assessment</h3>
+    <!-- Quality metrics and charts -->
+</section>
+
+<section id="univariate-analysis">
+    <h3>Univariate Analysis</h3>
+    <!-- Individual variable analyses -->
+</section>
+
+<section id="bivariate-analysis">
+    <h3>Bivariate and Multivariate Analysis</h3>
+    <!-- Correlation and comparison analyses -->
+</section>
+
+<section id="data-quality-issues">
+    <h3>Data Quality Issues and Recommendations</h3>
+    <!-- Detailed issue listing -->
+</section>
+</body> </html>
+```
+
+## Implementation Steps
+
+### 1. Dataset Loading and Initial Profiling
+- Load dataset from specified file path
+- Detect file format and apply appropriate parser
+- Calculate basic statistics: row count, column count, memory usage
+- Identify variable types: numeric, character, date, factor
+- Generate initial data quality metrics
+
+### 2. Variable-Level Analysis
+- For each variable in the dataset:
+  - Calculate missing value count and percentage
+  - Determine unique values and their frequencies
+  - For numeric variables: calculate descriptive statistics
+  - For categorical variables: calculate frequency distributions
+  - Identify potential outliers using statistical methods
+  - Assess distribution shape and normality
+
+### 3. Univariate Statistical Analysis
+- **Numerical Variables**:
+  - Calculate N, Mean, SD, Median, IQR, Min, Max
+  - Generate histograms with density curves
+  - Create Q-Q plots for normality assessment
+  - Perform Shapiro-Wilk normality tests
+  - Identify outliers using IQR method (1.5 × IQR rule)
+  - Generate boxplots for outlier visualization
+
+- **Categorical Variables**:
+  - Calculate frequency counts and percentages
+  - Generate bar charts for distribution visualization
+  - Identify rare categories (frequency < 5%)
+  - Check for unexpected or misspelled categories
+
+### 4. Bivariate and Multivariate Analysis
+- **Group Comparisons**:
+  - Identify key grouping variables (treatment, site, visit)
+  - Generate boxplots by group for numeric variables
+  - Create grouped bar charts for categorical variables
+  - Perform appropriate statistical tests (t-test, ANOVA, chi-square)
+  - Calculate effect sizes
+
+- **Correlation Analysis**:
+  - Calculate correlation matrix for numeric variables
+  - Generate correlation heatmap visualization
+  - Identify strong correlations (|r| > 0.7)
+  - Perform correlation significance testing
+
+- **Time Series Analysis**:
+  - If time variables present, explore trends over time
+  - Generate line plots for longitudinal data
+  - Identify patterns and seasonal variations
+
+### 5. Data Quality Assessment
+- **Missing Data Analysis**:
+  - Calculate missing data patterns across variables
+  - Generate missing data heatmap
+  - Identify variables with high missing rates (> 20%)
+  - Assess missing data mechanism (MCAR, MAR, MNAR)
+
+- **Outlier Detection**:
+  - Apply IQR method for numeric variables
+  - Use z-score method for normally distributed data
+  - Flag extreme values for review
+  - Generate outlier summary tables
+
+- **Consistency Checks**:
+  - Validate logical relationships between variables
+  - Check date ranges and temporal consistency
+  - Verify cross-variable constraints
+  - Identify potential data entry errors
+
+### 6. Visualization Generation
+- Create comprehensive set of visualizations:
+  - Histograms for all numeric variables
+  - Boxplots for numeric variables by key groups
+  - Bar charts for categorical variables
+  - Correlation heatmap
+  - Missing data pattern visualization
+  - Scatter plots for variable relationships
+  - Time series plots if applicable
+
+### 7. Report Generation
+- Compile all analyses into comprehensive report
+- Include executive summary with key findings
+- Provide detailed variable-level analysis
+- Document all identified issues with severity levels
+- Generate actionable recommendations
+- Create interactive HTML report with navigation
+
+## Constraints and Best Practices
+
+### MUST Requirements
+- You MUST support multiple file formats (.xpt, .sas7bdat, .csv)
+- You MUST calculate comprehensive descriptive statistics
+- You MUST identify and flag potential data quality issues
+- You MUST generate visualizations for all key analyses
+- You MUST provide clear, actionable recommendations
+- You MUST preserve data privacy and confidentiality
+- You MUST handle missing data appropriately in analyses
+
+### SHOULD Recommendations
+- You SHOULD use appropriate statistical tests for comparisons
+- You SHOULD provide confidence intervals for estimates
+- You SHOULD assess normality before applying parametric tests
+- You SHOULD document all assumptions made during analysis
+- You SHOULD provide context for identified issues
+- You SHOULD generate reproducible analysis code
+- You SHOULD follow data visualization best practices
+
+### MAY Options
+- You MAY suggest advanced analyses based on findings
+- You MAY provide recommendations for data cleaning
+- You MAY identify potential analysis challenges
+- You MAY suggest additional data collection if needed
+- You MAY provide historical comparisons if available
+
+## Error Handling
+
+### Common Issues and Solutions
+
+**Issue**: Dataset file cannot be read
+- **Solution**: Try alternative file readers, check file format, verify file path and permissions
+
+**Issue**: Large dataset causes memory issues
+- **Solution**: Use data sampling for initial analysis, implement chunked processing, suggest data subset
+
+**Issue**: Missing data patterns are complex
+- **Solution**: Apply advanced missing data analysis techniques, flag for expert review, document limitations
+
+**Issue**: Outlier identification produces many false positives
+- **Solution**: Adjust detection thresholds, use multiple methods, emphasize need for clinical review
+
+**Issue**: Visualization generation fails
+- **Solution**: Simplify complex plots, use alternative visualization methods, provide tabular summaries
+
+## Integration Examples
+
+### Calling from SOP
+
+```markdown
+
+3. Exploratory Data Analysis
+Perform comprehensive data quality assessment and exploration.
+
+Constraints:
+
+You MUST call exploratory_data_analysis_auto with dataset_path and output_report_path
+You MUST analyze all variables unless specific exclusions are provided
+You SHOULD generate treatment group comparisons if TRT01P variable exists
+You MUST identify and categorize all data quality issues by severity
+You MAY suggest additional analyses based on initial findings
+You MUST ensure report is comprehensive yet actionable
+You SHOULD provide clear recommendations for each identified issue
+```
+
+### MCP Tool Integration
+This skill can be exposed as an MCP tool with the following interface:
+- Tool name: `perform_exploratory_data_analysis`
+- Parameters: dataset_path, output_report_path, group_vars, analysis_depth, output_format
+- Returns: Comprehensive EDA report with data quality assessment and recommendations
+
+## Quality Assurance
+
+### Pre-Execution Checks
+- Verify dataset file is accessible and readable
+- Confirm output directory exists and is writable
+- Validate that required analysis libraries are available
+- Check dataset size and estimate processing time
+
+### Post-Execution Validation
+- Review generated report for completeness and accuracy
+- Verify all visualizations are properly rendered
+- Confirm all data quality issues are documented
+- Validate that recommendations are specific and actionable
+- Ensure report follows standard formatting and structure
+
+### Documentation Requirements
+- Maintain clear audit trail of analysis steps
+- Document all statistical methods and assumptions
+- Preserve source references for all findings
+- Generate summary of analysis limitations
+- Provide guidance for next steps based on findings
+
+## Regulatory Compliance
+
+### GCP Considerations
+- Ensure analysis supports data integrity requirements
+- Maintain audit trail for all data quality assessments
+- Support reproducibility of findings
+- Document all data quality decisions
+
+### Data Privacy
+- Protect subject confidentiality in all analyses
+- Avoid displaying individual subject data in reports
+- Follow data minimization principles
+- Comply with relevant data protection regulations
+
+### Best Practices
+- Follow CDISC standards for dataset analysis
+- Implement appropriate statistical methods
+- Support database lock preparation processes
+- Facilitate blind data review procedures
+- Enable efficient issue tracking and resolution
+
+...

@@ -1,0 +1,551 @@
+---
+name: interactive_dashboard_framework_gen
+description: "Generates the framework for an interactive analysis dashboard, particularly using R Shiny. Based on specified datasets and analysis types, it creates the UI layout, server logic stubs, and necessary reactivity for building a data exploration tool."
+version: "1.0.0"
+author: "Clinical Data Visualization Expert"
+tags: [rshiny, dashboard, visualization, code generation, platform, clinical data]
+---
+
+# Interactive Dashboard Framework Generation Skill
+
+## Overview
+This skill automates the generation of interactive analysis dashboard frameworks, primarily using R Shiny. It transforms static analysis results (TFLs) into interactive, explorable dashboards by creating UI layouts, server logic stubs, and necessary reactivity structures. This skill is essential for building data exploration tools that enable clinical teams to interactively analyze and visualize clinical trial data.
+
+## Usage
+Use this skill when you need to:
+- Create interactive dashboards for clinical trial data exploration
+- Transform static TFLs into dynamic, filterable visualizations
+- Build standard analysis application templates for specific therapeutic areas
+- Accelerate the development of data sharing and collaboration platforms
+- Enable real-time data exploration and hypothesis generation
+- Support blind data review and database lock preparation activities
+
+## Core Capabilities
+
+### Dashboard Requirements Understanding
+- **Data Source Analysis**: Understand target datasets (ADAE, ADLB, ADSL, etc.) and their structures
+- **Visualization Requirements**: Identify desired chart types (volcano plots, forest plots, patient profiles, waterfall plots)
+- **Interaction Design**: Determine required interactive filters (by population, dose, timepoint, subgroup)
+- **User Experience**: Consider user workflows and navigation patterns
+- **Performance Considerations**: Assess data volume and response time requirements
+
+### UI Layout Generation (ui.R)
+- **Standard Layout Structures**: Create standard page layouts like sidebarLayout, fluidPage, navbarPage
+- **Input Control Generation**: Generate code for various input widgets:
+  - `selectInput` for treatment group selection
+  - `sliderInput` for time range selection
+  - `checkboxGroupInput` for adverse event grade selection
+  - `dateRangeInput` for date filtering
+  - `radioButtons` for population selection
+- **Output Placeholders**: Create corresponding output placeholders for each chart or table:
+  - `plotOutput` for visualizations
+  - `dataTableOutput` for tabular data
+  - `htmlOutput` for text summaries
+- **Responsive Design**: Implement responsive layouts that work on different screen sizes
+- **Styling Frameworks**: Integrate with Bootstrap, shinydashboard, or other styling frameworks
+
+### Server Logic Generation (server.R)
+- **Reactive Expressions**: Create reactive expressions for dynamic data filtering based on UI inputs
+- **Data Processing**: Generate framework code for data manipulation and transformation
+- **Visualization Functions**: Create renderPlot functions with ggplot2 or other visualization libraries
+- **Table Rendering**: Implement renderDataTable functions with formatting and filtering options
+- **Reactivity Management**: Establish proper reactive dependencies and isolate reactive contexts
+- **Error Handling**: Include error handling and user feedback mechanisms
+
+### Modular Design Implementation
+- **Shiny Modules**: Generate modular code structure using Shiny Modules for complex dashboards
+- **Component Reusability**: Create reusable UI and server components
+- **Namespace Management**: Implement proper module namespacing to avoid conflicts
+- **Module Communication**: Establish communication patterns between modules
+- **Scalability**: Design for easy addition of new features and components
+
+### Supporting Files Generation
+- **global.R**: Generate global.R file for:
+  - Loading necessary R packages
+  - Setting global options and configurations
+  - Defining global variables and constants
+  - Implementing utility functions
+- **Example Data**: Provide small example datasets for testing and demonstration
+- **Documentation**: Include README files with setup and usage instructions
+- **Configuration Files**: Generate configuration files for easy customization
+
+## Input Format
+
+### Required Parameters
+
+- **dashboard_requirements** (required): Dashboard requirements document
+  - File path or content of requirements
+  ```json
+  {
+  "target_datasets": ["ADAE", "ADLB", "ADSL"],
+  "visualizations": [
+  {
+  "type": "volcano_plot",
+  "title": "Adverse Event Volcano Plot",
+  "data_source": "ADAE"
+  },
+  {
+  "type": "forest_plot",
+  "title": "Efficacy Forest Plot",
+  "data_source": "custom_analysis"
+  }
+  ],
+  "filters": [
+  {
+  "type": "treatment_group",
+  "variable": "TRT01P",
+  "widget": "selectInput"
+  },
+  {
+  "type": "time_range",
+  "variable": "ADY",
+  "widget": "sliderInput"
+  }
+  ],
+  "layout": "sidebar"
+  }
+  ```
+
+- **frontend_technology** (required): Frontend technology stack
+  - Must be specified by user
+  - Examples: 
+    - {"framework": "React", "version": "18"}
+    - {"framework": "Vue", "version": "3"}
+    - {"framework": "Shiny", "version": "1.7"}
+  - If not provided, must call technology_trends_intelligence first
+  
+- **backend_technology** (required): Backend technology stack
+  - Must be specified by user
+  - Examples:
+    - {"framework": "Flask", "version": "3.0"}
+    - {"framework": "FastAPI", "version": "0.104"}
+    - {"framework": "Plumber", "version": "1.2"}
+
+### Optional Parameters
+- `output_dir`: Directory where dashboard code will be generated
+- `use_modules`: Whether to use Shiny Modules for modular design (default: true)
+- `include_examples`: Whether to include example data (default: true)
+- `styling_framework`: Framework to use for styling ("bootstrap", "shinydashboard", "custom")
+- `r_version`: Target R version for compatibility
+- **deployment_environment** (optional): Deployment environment
+  - Examples: "local", "server", "cloud", "docker"
+
+## Output Format
+### Dashboard Framework Report Structure
+
+```json
+{
+"framework_generation_metadata": {
+"generation_id": "DASH-FRAME-2026-04-01-001",
+"generation_timestamp": "2026-04-01T10:00:00Z",
+"technology_stack": {
+"frontend": {
+"framework": "React",
+"version": "18.2",
+"ui_library": "Material-UI 5.14"
+},
+"backend": {
+"framework": "FastAPI",
+"version": "0.104.1"
+}
+},
+"technology_stack_specified_by": "user"
+},
+"technology_recommendations": {
+"recommended_versions": {…},
+"compatibility_notes": […],
+"architecture_patterns": […],
+"best_practices": […]
+},
+"dashboard_framework": {
+"frontend_components": […],
+"backend_api": […],
+"data_flow": […]
+},
+"user_interaction_required": true,
+"interaction_prompt": {
+"title": "Please confirm your technology stack",
+"context": "Based on your requirements, I recommend the following technology stack…",
+"available_options": […]
+}
+}
+```
+
+### Generated File Structure
+
+```output_dir/
+├── app.R # Main application entry point
+├── ui.R # UI layout definitions
+├── server.R # Server logic and reactivity
+├── global.R # Global configurations and utilities
+├── modules/ # Shiny modules (if modular design)
+│ ├── module_ui.R
+│ └── module_server.R
+├── data/ # Example data files
+│ ├── example_adae.rds
+│ └── example_adsl.rds
+├── R/ # Utility functions
+│ └── helpers.R
+├── www/ # Web assets
+│ ├── styles.css
+│ └── custom.js
+└── README.md # Setup and usage documentation
+```
+
+
+### UI Code Example (ui.R)
+
+```r
+
+UI Layout for Clinical Trial Dashboard
+library(shiny)
+library(shinydashboard)
+
+ui <- dashboardPage(
+dashboardHeader(title = "Clinical Trial Analysis Dashboard"),
+
+dashboardSidebar(
+sidebarMenu(
+menuItem("Overview", tabName = "overview", icon = icon("dashboard")),
+menuItem("Safety", tabName = "safety", icon = icon("shield")),
+menuItem("Efficacy", tabName = "efficacy", icon = icon("chart-line")),
+menuItem("Patient Profiles", tabName = "profiles", icon = icon("user"))
+),
+
+# Filter Controls
+conditionalPanel(
+  condition = "input.tabs == 'safety'",
+  wellPanel(
+    h4("Filters"),
+    selectInput("treatment_filter", "Treatment Group:",
+               choices = c("All", "Placebo", "Treatment X")),
+    sliderInput("grade_filter", "AE Grade:",
+                min = 1, max = 5, value = c(1, 5), step = 1),
+    checkboxGroupInput("system_filter", "System Organ Class:",
+                      choices = c("All Systems", "GI", "Cardio", "Neuro"))
+  )
+)
+),
+
+dashboardBody(
+tabItems(
+# Overview Tab
+tabItem(tabName = "overview",
+fluidRow(
+valueBox(245, "Total Subjects", icon = icon("users"), color = "primary"),
+valueBox(122, "Treatment Group", icon = icon("medkit"), color = "success"),
+valueBox(123, "Placebo Group", icon = icon("pills"), color = "info")
+),
+fluidRow(
+box(title = "Subject Disposition",
+plotOutput("disposition_plot"),
+status = "primary", solidHeader = TRUE)
+)
+),
+
+  # Safety Tab
+  tabItem(tabName = "safety",
+          fluidRow(
+            box(title = "Adverse Event Summary",
+                plotOutput("ae_summary_plot"),
+                status = "warning", solidHeader = TRUE, width = 8),
+            box(title = "Filter Summary",
+                tableOutput("filter_summary"),
+                status = "info", solidHeader = TRUE, width = 4)
+          )
+  ),
+  
+  # Efficacy Tab
+  tabItem(tabName = "efficacy",
+          fluidRow(
+            box(title = "Primary Endpoint Analysis",
+                plotOutput("efficacy_plot"),
+                status = "success", solidHeader = TRUE)
+          )
+  ),
+  
+  # Patient Profiles Tab
+  tabItem(tabName = "profiles",
+          fluidRow(
+            box(title = "Patient Selection",
+                selectInput("subject_select", "Select Subject:",
+                           choices = NULL),
+                status = "primary"),
+            box(title = "Patient Timeline",
+                plotOutput("patient_timeline"),
+                status = "info", solidHeader = TRUE)
+          )
+  )
+)
+)
+)
+```
+
+
+### Server Code Example (server.R)
+
+```r
+
+Server Logic for Clinical Trial Dashboard
+library(shiny)
+library(dplyr)
+library(ggplot2)
+
+server <- function(input, output, session) {
+
+Reactive data filtering
+filtered_data <- reactive({
+data <- adae_data
+
+# Apply treatment filter
+if (!is.null(input$treatment_filter) && input$treatment_filter != "All") {
+  data <- data %>% filter(TRT01P == input$treatment_filter)
+}
+
+# Apply grade filter
+if (!is.null(input$grade_filter)) {
+  data <- data %>% filter(AESEV >= input$grade_filter[1] & 
+                           AESEV <= input$grade_filter[2])
+}
+
+# Apply system filter
+if (!is.null(input$system_filter) && !"All Systems" %in% input$system_filter) {
+  data <- data %>% filter(AESOC %in% input$system_filter)
+}
+
+return(data)
+})
+
+# AE Summary Plot
+output$ae_summary_plot <- renderPlot({
+data <- filtered_data()
+
+ggplot(data, aes(x = AESOC, fill = TRT01P)) +
+  geom_bar(position = "dodge") +
+  coord_flip() +
+  labs(title = "Adverse Events by System Organ Class",
+       x = "System Organ Class",
+       y = "Count",
+       fill = "Treatment Group") +
+  theme_minimal() +
+  theme(axis.text.y = element_text(size = 8))
+})
+
+# Filter Summary Table
+output$filter_summary <- renderTable({
+data <- filtered_data()
+
+data.frame(
+  Metric = c("Total Subjects", "Total AEs", "Unique Subjects with AEs"),
+  Value = c(nrow(adsl_data), nrow(data), length(unique(data$USUBJID)))
+)
+})
+
+Subject selection update
+observe({
+selected_treatment <- input$treatment_filter
+if (!is.null(selected_treatment) && selected_treatment != "All") {
+subjects <- adsl_data %>%
+filter(TRT01P == selected_treatment) %>%
+pull(USUBJID)
+updateSelectInput(session, "subject_select", choices = subjects)
+}
+})
+}
+
+```
+
+
+## Implementation Steps
+
+### 0. Pre-Generation: Technology Stack Confirmation (NEW)
+Confirm technology stack with user before proceeding.
+
+**Constraints:**
+- You MUST confirm frontend_technology and backend_technology are specified by user
+- If not provided:
+  - You MUST call `technology_trends_intelligence` with:
+    - technology_domain: "system_architecture"
+    - language_or_tool: "React" (or user preference)
+    - application_scenario: "data_visualization"
+  - You MUST present available technology options to user
+  - You MUST request user to specify technology stack
+  - You MUST NOT auto-select any technology
+- You MUST document technology stack confirmation
+- You MUST ensure transparency about technology used
+
+### 1. Technology Trends Retrieval (NEW)
+Retrieve latest technology trends for dashboard development.
+
+**Constraints:**
+- You MUST call `technology_trends_intelligence` with:
+  - technology_domain: "system_architecture"
+  - language_or_tool: [user-specified framework]
+  - version: [user-specified version]
+  - application_scenario: "data_visualization"
+- You MUST retrieve latest framework versions
+- You MUST assess compatibility
+- You MUST identify best practices
+- You MUST provide architecture recommendations
+
+### 2. Requirements Analysis and Understanding
+- Parse dashboard requirements from input JSON
+- Identify target datasets and their structures
+- Determine visualization types and chart requirements
+- Understand filtering and interaction needs
+- Assess performance and scalability requirements
+
+### 3. UI Layout Generation
+- Create main application structure (app.R)
+- Generate UI layout based on specified framework (sidebar, navbar, etc.)
+- Create input controls for each specified filter
+- Generate output placeholders for each visualization
+- Implement responsive design principles
+- Add styling and branding elements
+
+### 4 Server Logic Generation
+- Create server function structure
+- Generate reactive expressions for data filtering
+- Implement render functions for each output
+- Create data processing and transformation logic
+- Add error handling and user feedback
+- Implement reactivity management
+
+### 5. Modular Design Implementation (if requested)
+- Identify reusable components
+- Create module UI and server functions
+- Implement module communication patterns
+- Establish proper namespacing
+- Generate module interface definitions
+
+### 6. Supporting Files Creation
+- Generate global.R with package loading and configurations
+- Create example datasets for testing
+- Implement utility functions in R/helpers.R
+- Add custom CSS and JavaScript in www/ directory
+- Generate README with setup instructions
+
+### 7. Documentation and Testing
+- Create comprehensive README with setup and usage instructions
+- Add code comments explaining framework structure
+- Provide examples of how to extend the dashboard
+- Include testing guidelines and best practices
+
+## Constraints and Best Practices
+
+### MUST Requirements
+- You MUST confirm technology_stack with user before proceeding
+- You MUST NOT auto-select any technology stack
+- You MUST call technology_trends_intelligence for latest technology trends
+- You MUST provide complete transparency about technology used
+- You MUST ensure framework is compatible with specified technology stack
+- You MUST document all technology considerations
+- You MUST generate code that follows R Shiny best practices
+- You MUST implement proper reactive programming patterns
+- You MUST include error handling and user feedback mechanisms
+- You MUST create responsive layouts that work on different screen sizes
+- You MUST generate code with clear comments and documentation
+- You MUST follow R coding standards and conventions
+
+### SHOULD Recommendations
+- You SHOULD use modular design patterns for complex dashboards
+- You SHOULD implement efficient data filtering and processing
+- You SHOULD use appropriate visualization libraries (ggplot2, plotly, etc.)
+- You SHOULD consider performance optimization for large datasets
+- You SHOULD implement proper data validation and sanitization
+- You SHOULD follow accessibility guidelines for UI components
+
+### MAY Options
+- You MAY suggest alternative visualization approaches
+- You MAY provide recommendations for deployment and hosting
+- You MAY include advanced features like caching, database integration
+- You MAY suggest authentication and authorization mechanisms
+- You MAY provide guidance on testing and quality assurance
+
+## Error Handling
+
+### Common Issues and Solutions
+
+**Issue**: Dashboard performance is slow with large datasets
+- **Solution**: Implement data sampling, use reactive values for caching, suggest database integration
+
+**Issue**: Reactive dependencies are causing performance issues
+- **Solution**: Use isolate() appropriately, implement debounce/throttle for frequent updates, optimize reactive expressions
+
+**Issue**: Layout breaks on different screen sizes
+- **Solution**: Use responsive design frameworks, test on multiple devices, implement proper fluid layouts
+
+**Issue**: Complex filtering logic is difficult to implement
+- **Solution**: Break down complex filters into simpler reactive expressions, use helper functions, provide clear examples
+
+## Integration Examples
+
+### Calling from SOP
+
+```markdown
+
+2. Interactive Dashboard Framework Generation
+Create R Shiny dashboard framework for clinical trial data exploration.
+
+Constraints:
+
+You MUST call interactive_dashboard_framework_gen with complete dashboard requirements
+You SHOULD generate modular code structure using Shiny Modules
+You MUST include example data for testing and demonstration
+You MAY suggest visualization improvements based on data characteristics
+You MUST ensure generated code follows R Shiny best practices
+You SHOULD provide comprehensive documentation for setup and usage
+You MUST implement proper error handling and user feedback mechanisms
+```
+
+
+### MCP Tool Integration
+This skill can be exposed as an MCP tool with the following interface:
+- Tool name: `generate_dashboard_framework`
+- Parameters: dashboard_requirements, output_dir, use_modules, styling_framework
+- Returns: Generated dashboard code files with comprehensive documentation
+
+## Quality Assurance
+
+### Pre-Execution Checks
+- Verify dashboard requirements are complete and valid
+- Confirm output directory exists and is writable
+- Validate that specified datasets are accessible
+- Check that required R packages are available
+
+### Post-Execution Validation
+- Verify all expected files were generated
+- Check that generated code has proper syntax
+- Validate that UI and server components are properly connected
+- Confirm that example data is included and usable
+- Ensure documentation is comprehensive and accurate
+
+### Documentation Requirements
+- Maintain clear file naming conventions
+- Include setup instructions in README
+- Document all dependencies and package requirements
+- Provide examples of how to extend and customize the dashboard
+- Include troubleshooting guidance for common issues
+
+## Regulatory Compliance
+
+### Data Privacy and Security
+- Ensure no patient-identifiable information is exposed
+- Implement proper data access controls
+- Follow data minimization principles
+- Comply with relevant data protection regulations (HIPAA, GDPR)
+
+### GCP Considerations
+- Support data integrity and audit trail requirements
+- Enable proper user access management
+- Facilitate reproducibility of analyses
+- Support collaboration while maintaining data security
+
+### Best Practices
+- Follow clinical data visualization standards
+- Implement appropriate color schemes for colorblind users
+- Ensure charts are accessible and interpretable
+- Support export functionality for regulatory submissions
+- Enable proper documentation of analysis workflows
+
+...

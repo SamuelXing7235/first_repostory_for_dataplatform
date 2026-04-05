@@ -1,0 +1,745 @@
+---
+name: statistical_methodology_intelligence
+description: "Intelligently retrieves and manages the latest statistical methodology developments, including new statistical methods, models, frameworks, and clinical trial design approaches. It provides methodology comparison, regulatory acceptance assessment, and methodology selection recommendations for clinical trial design and analysis. This skill ensures users make informed methodology decisions with complete transparency and mandatory user confirmation."
+version: "1.0.0"
+author: "Statistical Methodology Intelligence Expert"
+tags: [statistical methodology, clinical trial design, statistical models, adaptive designs, bayesian methods, regulatory acceptance]
+---
+
+# Statistical Methodology Intelligence Skill
+
+## Overview
+This skill provides intelligent retrieval and management of the latest statistical methodology developments relevant to clinical trials. It covers new statistical methods, models, frameworks, clinical trial design approaches, and regulatory acceptance. It provides methodology comparison, regulatory acceptance assessment, and methodology selection recommendations to support informed statistical methodology decisions with mandatory user confirmation and complete transparency.
+
+## Usage
+Use this skill when you need to:
+- Retrieve the latest statistical methodology developments
+- Query clinical trial design methods and their regulatory acceptance
+- Understand new statistical models and frameworks
+- Get statistical methodology selection recommendations
+- Compare different statistical approaches
+- Make methodology decisions for SAP development
+- Ensure methodology choices align with regulatory expectations
+- Plan methodology migrations or updates
+
+## Core Capabilities
+
+### Clinical Trial Design Methods
+- **Adaptive Designs**: Sample size reestimation, adaptive randomization, dose escalation
+- **Enrichment Designs**: Biomarker enrichment, genetic enrichment, subgroup enrichment
+- **Bayesian Designs**: Bayesian adaptive designs, hierarchical models, prior specification
+- **Master Protocols**: Basket trials, umbrella trials, platform trials
+- **Group Sequential Designs**: Interim analyses, early stopping, alpha spending
+
+### Statistical Methods and Models
+- **Primary Analysis Methods**: ANCOVA, mixed models, logistic regression, Cox models
+- **Multiplicity Adjustments**: Gatekeeping, graphical approaches, FDR, Bonferroni
+- **Missing Data Methods**: Multiple imputation, MMRM, pattern-mixture models
+- **Subgroup Analysis**: Pre-specified vs post-hoc, interaction tests, multiplicity
+- **Non-Parametric Methods**: Rank-based methods, permutation tests, bootstrap
+
+### Statistical Frameworks
+- **Frequentist Framework**: Traditional hypothesis testing, p-values, confidence intervals
+- **Bayesian Framework**: Prior distributions, posterior inference, credible intervals
+- **Hybrid Approaches**: Bayesian frequentist synthesis, adaptive Bayesian methods
+- **Machine Learning Integration**: ML for covariate selection, ML for subgroup identification
+
+### Regulatory Acceptance and Guidance
+- **FDA Guidance**: Adaptive designs, enrichment strategies, multiplicity, missing data
+- **EMA Guidelines**: Reflection papers, scientific advice, qualification opinions
+- **PMDA Requirements**: Specific requirements for Japanese submissions
+- **ICH Guidelines**: E9 (statistical principles), E8 (design), E6 (GCP)
+
+### Statistical Software Updates
+- **SAS Updates**: New procedures, enhanced capabilities, performance improvements
+- **R Packages**: New packages, updated packages, improved functionality
+- **Python Libraries**: New libraries, enhanced capabilities, better integration
+
+## Input Format
+
+### Required Parameters
+- **methodology_domain** (required): Methodology domain of interest
+  - Examples: "clinical_trial_design", "statistical_methods", "multiplicity", "missing_data", "bayesian_methods"
+  
+- **application_context** (required): Application context
+  - Examples: "phase_iii_trial", "phase_ii_trial", "exploratory_analysis", "regulatory_submission"
+
+### Optional Parameters
+- **trial_type** (optional): Type of clinical trial
+  - Examples: "parallel", "crossover", "factorial", "adaptive"
+  
+- **endpoint_type** (optional): Type of endpoint
+  - Examples: "continuous", "binary", "time_to_event", "count"
+  
+- **methodology_name** (optional): Specific methodology name
+  - Examples: "sample_size_reestimation", "gatekeeping", "MMRM"
+  
+- **regulatory_agency** (optional): Target regulatory agency
+  - Examples: "FDA", "EMA", "PMDA", "NMPA"
+
+## Output Format
+
+### Statistical Methodology Intelligence Report Structure
+```json
+{
+"query_metadata": {
+"query_id": "STAT-2026-04-01-001",
+"query_timestamp": "2026-04-01T10:00:00Z",
+"query_parameters": {
+"methodology_domain": "clinical_trial_design",
+"application_context": "phase_iii_trial",
+"trial_type": "parallel",
+"endpoint_type": "continuous",
+"methodology_name": null,
+"regulatory_agency": "FDA"
+}
+},
+"methodology_domain": "clinical_trial_design",
+"application_context": "phase_iii_trial",
+"latest_methodology_developments": {
+"adaptive_designs": {
+"sample_size_reestimation": {
+"status": "well_established",
+"regulatory_acceptance": {
+"FDA": {
+"acceptance_status": "accepted_with_conditions",
+"guidance_document": "Adaptive Design Clinical Trials Guidance for Industry (2019)",
+"key_requirements": [
+"Pre-specification of adaptation rules",
+"Control of Type I error rate",
+"Blinded interim analysis for sample size reestimation",
+"Documentation of adaptation process"
+],
+"common_use_cases": [
+"High uncertainty in effect size",
+"Rare disease trials",
+"Pilot studies with limited data"
+]
+},
+"EMA": {
+"acceptance_status": "accepted",
+"guidance_document": "Reflection Paper on Adaptive Designs (2022)",
+"key_requirements": [
+"Pre-specified adaptation plan",
+"Independent DMC oversight",
+"Statistical validation of adaptation",
+"Transparency in reporting"
+]
+},
+"PMDA": {
+"acceptance_status": "accepted",
+"guidance_document": "Guideline on Clinical Trial Design (2021)",
+"key_requirements": [
+"Pre-specification in protocol",
+"Statistical justification",
+"DMC involvement",
+"Detailed SAP"
+]
+}
+},
+"statistical_considerations": {
+"type_i_error_control": "Must be maintained at nominal level",
+"bias_control": "Blinded interim analysis recommended",
+"power_calculation": "Re-calculation based on interim estimate",
+"sample_size_adjustment": "Limited adjustment (typically 2x maximum)"
+},
+"implementation_considerations": {
+"complexity": "medium",
+"requires_dmc": true,
+"requires_blinded_interim": true,
+"documentation_requirements": "high"
+},
+"key_advantages": [
+"Addresses uncertainty in effect size",
+"Improves power for true effect",
+"Reduces sample size for overpowered studies",
+"More efficient use of resources"
+],
+"key_challenges": [
+"Increased complexity",
+"Requires careful planning",
+"Potential for operational bias",
+"Regulatory scrutiny"
+],
+"applicability_to_phase_iii": "suitable_with_justification"
+},
+"adaptive_randomization": {
+"status": "emerging",
+"regulatory_acceptance": {
+"FDA": {
+"acceptance_status": "limited_acceptance",
+"guidance_document": "Adaptive Design Clinical Trials Guidance (2019)",
+"key_requirements": [
+"Strong justification required",
+"Pre-specified randomization algorithm",
+"Control of operational bias",
+"Extensive simulation studies"
+],
+"limitations": [
+"Primarily for early-phase trials",
+"Requires extensive validation",
+"Limited regulatory experience"
+]
+},
+"EMA": {
+"acceptance_status": "under_review",
+"guidance_document": "Reflection Paper on Adaptive Designs (2022)",
+"key_requirements": [
+"Scientific advice recommended",
+"Extensive methodological justification",
+"Control of Type I error",
+"Transparency in randomization"
+]
+}
+},
+"statistical_considerations": {
+"type_i_error_control": "Challenging, requires complex methods",
+"bias_control": "High risk of operational bias",
+"randomization_algorithms": ["Thompson sampling", "Bayesian adaptive", "Response-adaptive"]
+},
+"applicability_to_phase_iii": "limited"
+}
+},
+"enrichment_designs": {
+"biomarker_enrichment": {
+"status": "rapidly_evolving",
+"regulatory_acceptance": {
+"FDA": {
+"acceptance_status": "accepted_with_strong_justification",
+"guidance_document": "Enrichment Strategies for Clinical Trials Guidance (2023)",
+"key_requirements": [
+"Pre-defined biomarker",
+"Validated biomarker assay",
+"Clinical relevance of biomarker",
+"Pre-specified enrichment strategy"
+],
+"common_use_cases": [
+"Oncology targeted therapies",
+"Precision medicine approaches",
+"Companion diagnostic development"
+]
+},
+"EMA": {
+"acceptance_status": "accepted",
+"guidance_document": "Guideline on Companion Diagnostics (2022)",
+"key_requirements": [
+"Validated diagnostic test",
+"Clinical validity of biomarker",
+"Pre-specified analysis plan",
+"Regulatory qualification of biomarker"
+]
+}
+},
+"statistical_considerations": {
+"sample_size_implications": "Reduced sample size in enriched population",
+"generalizability": "Limited to biomarker-positive population",
+"multiplicity": "May require testing in broader population",
+"interaction_tests": "Pre-specified biomarker-treatment interaction"
+},
+"key_advantages": [
+"Increased treatment effect in enriched population",
+"Reduced sample size requirements",
+"Targeted patient population",
+"Alignment with precision medicine"
+],
+"key_challenges": [
+"Biomarker validation required",
+"Limited generalizability",
+"Diagnostic test availability",
+"Regulatory qualification needed"
+],
+"applicability_to_phase_iii": "highly_suitable_with_justification"
+}
+},
+"bayesian_methods": {
+"bayesian_adaptive_designs": {
+"status": "growing_acceptance",
+"regulatory_acceptance": {
+"FDA": {
+"acceptance_status": "accepted_for_specific_indications",
+"guidance_document": "Bayesian Statistical Methods in Medical Device Clinical Studies (2020)",
+"key_requirements": [
+"Pre-specified prior distributions",
+"Justification of prior selection",
+"Sensitivity analysis to priors",
+"Clear Bayesian decision rules"
+],
+"suitable_indications": [
+"Rare diseases",
+"Medical devices",
+"Pediatric studies",
+"Small populations"
+]
+},
+"EMA": {
+"acceptance_status": "accepted_with_conditions",
+"guidance_document": "Reflection Paper on Bayesian Methods (2022)",
+"key_requirements": [
+"Prior justification and sensitivity analysis",
+"Posterior predictive checks",
+"Comparison with frequentist results",
+"Transparency in Bayesian approach"
+]
+}
+},
+"statistical_considerations": {
+"prior_specification": "Critical, requires justification",
+"posterior_inference": "Probabilistic interpretation",
+"decision_rules": "Pre-specified Bayesian decision criteria",
+"sample_size": "Often smaller than frequentist"
+},
+"key_advantages": [
+"More flexible adaptive designs",
+"Incorporation of prior information",
+"Intuitive probabilistic interpretation",
+"Efficient sample size use"
+],
+"key_challenges": [
+"Prior specification controversy",
+"Computational complexity",
+"Regulatory familiarity",
+"Requires statistical expertise"
+],
+"applicability_to_phase_iii": "suitable_for_specific_cases"
+},
+"bayesian_hierarchical_models": {
+"status": "established",
+"regulatory_acceptance": {
+"FDA": "accepted_for_specific_applications",
+"EMA": "accepted",
+"key_applications": [
+"Multi-center trials",
+"Meta-analysis",
+"Borrowing information across subgroups",
+"Small area estimation"
+]
+},
+"statistical_considerations": {
+"hierarchical_structure": "Random effects for centers/subgroups",
+"borrowing_strength": "Partial pooling across groups",
+"shrinkage": "Borrowing information improves estimates"
+},
+"applicability_to_phase_iii": "suitable_for_multi_center_trials"
+}
+}
+},
+"multiplicity_adjustments": {
+"gatekeeping_procedures": {
+"status": "well_established",
+"latest_developments": [
+"Improved gatekeeping strategies with flexible weights",
+"Tree-based gatekeeping for complex hierarchies",
+"Gatekeeping with graphical approaches"
+],
+"regulatory_acceptance": "widely_accepted",
+"applicability": "Primary and secondary endpoints with hierarchical testing"
+},
+"graphical_approaches": {
+"status": "growing_popularity",
+"advantages": [
+"Flexible hypothesis testing",
+"Visual representation of testing strategy",
+"Adaptable to various multiplicity scenarios"
+],
+"regulatory_acceptance": "accepted",
+"applicability": "Complex multiplicity scenarios with multiple endpoints"
+},
+"false_discovery_rate": {
+"status": "established_for_explatory",
+"applicability": "Exploratory analyses, biomarker discovery",
+"regulatory_acceptance": "not_for_primary_endpoints"
+}
+},
+"missing_data_methods": {
+"multiple_imputation": {
+"status": "gold_standard",
+"latest_developments": [
+"Improved imputation models",
+"Better uncertainty quantification",
+"Multiple imputation then deletion (MID)",
+"Imputation with machine learning"
+],
+"regulatory_acceptance": "widely_accepted",
+"applicability": "Primary and sensitivity analyses"
+},
+"mixed_models_for_repeated_measures": {
+"status": "well_established",
+"latest_developments": [
+"More flexible covariance structures",
+"Better handling of missing at random (MAR)",
+"Improved computational efficiency"
+],
+"regulatory_acceptance": "widely_accepted",
+"applicability": "Primary analysis for longitudinal data"
+}
+},
+"statistical_software_updates": {
+"SAS": {
+"latest_version": "9.4M8",
+"release_date": "2023-11",
+"new_procedures": [
+"PROC BAYES - Enhanced Bayesian modeling capabilities",
+"PROC MCMC - Improved Markov Chain Monte Carlo",
+"PROC GLIMMIX - Enhanced generalized linear mixed models",
+"PROC PHREG - New survival analysis features"
+],
+"enhanced_capabilities": [
+"Better handling of large datasets",
+"Improved performance for mixed models",
+"Enhanced ODS graphics",
+"Better integration with R and Python"
+]
+},
+"R": {
+"latest_version": "4.3.2",
+"new_packages": [
+"tidymodels ecosystem - Updated with new features",
+"brms - Enhanced Bayesian regression models",
+"survminer - Improved survival analysis visualization",
+"lme4 - Updated mixed effects models",
+"emmeans - Enhanced estimated marginal means"
+],
+"updated_packages": [
+"survival - New survival analysis methods",
+"ggplot2 - Enhanced visualization capabilities",
+"dplyr - Improved data manipulation"
+]
+},
+"Python": {
+"key_libraries": {
+"statsmodels": "0.14.0 - New mixed effects models, improved time series",
+"lifelines": "0.28.0 - Enhanced survival analysis, new parametric models",
+"pymc3": "3.11.5 - Improved Bayesian modeling, better sampling",
+"scikit-learn": "1.3.2 - New ML algorithms, better interpretability"
+}
+}
+},
+"methodology_recommendations": {
+"for_phase_iii_continuous_endpoint": {
+"primary_analysis": "ANCOVA with baseline covariate",
+"justification": "Standard approach, well-accepted by regulators, adjusts for baseline",
+"statistical_considerations": [
+"Check normality assumptions",
+"Verify homogeneity of variance",
+"Assess model fit",
+"Consider transformations if needed"
+],
+"sensitivity_analyses": [
+"Mixed Model for Repeated Measures (MMRM)",
+"Multiple Imputation (MI)",
+"Non-parametric methods (e.g., Wilcoxon rank-sum)",
+"Permutation tests"
+],
+"multiplicity": "Hierarchical testing or gatekeeping for multiple endpoints",
+"missing_data": "MMRM as primary, MI as sensitivity"
+},
+"for_phase_iii_time_to_event_endpoint": {
+"primary_analysis": "Cox proportional hazards model",
+"justification": "Standard approach for time-to-event data",
+"statistical_considerations": [
+"Verify proportional hazards assumption",
+"Check censoring patterns",
+"Assess model fit",
+"Consider stratification factors"
+],
+"sensitivity_analyses": [
+"Log-rank test",
+"Parametric survival models (Weibull, exponential)",
+"Competing risks models if applicable",
+"Bayesian survival models"
+]
+},
+"emerging_methods_to_consider": {
+"adaptive_designs": {
+"when_to_consider": "If trial uncertainty is high",
+"requirements": "Pre-specification, DMC, statistical validation",
+"regulatory_path": "Early interaction with regulators"
+},
+"bayesian_methods": {
+"when_to_consider": "If prior information is available or small population",
+"requirements": "Prior justification, sensitivity analysis",
+"regulatory_path": "Scientific advice recommended"
+},
+"enrichment_designs": {
+"when_to_consider": "If reliable biomarker is available",
+"requirements": "Validated biomarker, pre-specified strategy",
+"regulatory_path": "Companion diagnostic qualification"
+}
+}
+},
+"regulatory_guidance_updates": {
+"FDA": [
+{
+"document": "Adaptive Design Clinical Trials Guidance for Industry",
+"date": "2019",
+"key_points": ["Pre-specification requirements", "Type I error control", "DMC role"]
+},
+{
+"document": "Enrichment Strategies for Clinical Trials Guidance",
+"date": "2023",
+"key_points": ["Biomarker validation", "Pre-specified enrichment", "Companion diagnostics"]
+}
+],
+"EMA": [
+{
+"document": "Reflection Paper on Adaptive Designs",
+"date": "2022",
+"key_points": ["Adaptation plan", "Statistical validation", "Transparency"]
+},
+{
+"document": "Guideline on Multiplicity Issues in Clinical Trials",
+"date": "2023",
+"key_points": ["Gatekeeping procedures", "Graphical approaches", "FDR limitations"]
+}
+]
+},
+"user_interaction_required": true,
+"interaction_prompt": {
+"title": "Please specify your statistical methodology requirements and preferences",
+"context": "Based on Phase III trial with continuous endpoint, I need to understand your methodology preferences to provide tailored recommendations.",
+"key_questions": [
+"What is your primary endpoint type?",
+"Do you have prior information that could inform Bayesian approaches?",
+"Are there any adaptive design considerations?",
+"What is your target regulatory agency?",
+"Do you have reliable biomarkers for enrichment?",
+"What is your sample size and power considerations?"
+],
+"methodology_selection_options": [
+{
+"option": "Standard frequentist approach",
+"components": ["ANCOVA", "MMRM", "Gatekeeping multiplicity"],
+"advantages": ["Well-established", "Widely accepted", "Regulatory familiarity"],
+"considerations": ["May be conservative", "Less flexible"]
+},
+{
+"option": "Adaptive design with sample size reestimation",
+"components": ["Blinded interim analysis", "Sample size adjustment", "Type I error control"],
+"advantages": ["Addresses uncertainty", "Improves power", "Efficient resource use"],
+"considerations": ["Increased complexity", "Requires DMC", "Regulatory interaction"]
+},
+{
+"option": "Bayesian approach",
+"components": ["Bayesian hierarchical model", "Prior specification", "Posterior inference"],
+"advantages": ["Incorporates prior info", "Intuitive interpretation", "Flexible"],
+"considerations": ["Prior justification", "Requires expertise", "Regulatory acceptance varies"]
+}
+],
+"ways_to_specify": [
+"1. Specify preferred statistical methods and models",
+"2. Provide trial design details (endpoint, sample size, etc.)",
+"3. Describe regulatory submission requirements",
+"4. Specify any constraints or preferences"
+]
+},
+"important_notes": [
+"ANCOVA remains the gold standard for continuous endpoints in Phase III",
+"MMRM is widely accepted for longitudinal data with missing values",
+"Adaptive designs require pre-specification and regulatory interaction",
+"Bayesian methods are gaining acceptance but require strong justification",
+"Enrichment designs require validated biomarkers and pre-specified strategies",
+"Multiplicity adjustment is essential for multiple endpoints",
+"Missing data handling must be pre-specified and justified"
+],
+"references": [
+{
+"source": "FDA",
+"document": "Adaptive Design Clinical Trials Guidance for Industry",
+"url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/adaptive-design-clinical-trials-drugs-and-biologics" ,
+"access_date": "2026-04-01"
+},
+{
+"source": "EMA",
+"document": "Reflection Paper on Adaptive Designs",
+"url": "https://www.ema.europa.eu/en/documents/scientific-guideline/reflection-paper-adaptive-designs-clinical-trials_en.pdf" ,
+"access_date": "2026-04-01"
+}
+]
+}
+```
+
+## Implementation Steps
+
+### 1. Query Parameter Validation
+Validate all input parameters.
+
+**Constraints:**
+- You MUST validate methodology_domain is supported
+- You MUST validate application_context is relevant
+- You SHOULD validate trial_type if provided
+- You MUST NOT proceed with invalid parameters
+
+### 2. Methodology Information Retrieval
+Retrieve methodology information from authoritative sources.
+
+**Constraints:**
+- You MUST retrieve information from official regulatory sources
+- You MUST retrieve information from statistical literature
+- You SHOULD retrieve information from multiple sources
+- You MUST document source and retrieval date
+- You MUST NOT use outdated or unverified sources
+
+### 3. Regulatory Acceptance Assessment
+Assess regulatory acceptance of methodologies.
+
+**Constraints:**
+- You MUST assess acceptance by each regulatory agency
+- You MUST identify guidance documents
+- You MUST identify acceptance conditions
+- YOU SHOULD identify limitations and constraints
+- YOU MUST document regulatory requirements
+
+### 4. Methodology Comparison and Evaluation
+Compare different methodologies and evaluate trade-offs.
+
+**Constraints:**
+- You MUST compare relevant methodologies
+- You MUST identify advantages and disadvantages
+- YOU SHOULD assess statistical properties
+- YOU MUST consider implementation complexity
+- YOU SHOULD provide comparative analysis
+
+### 5. Application Context Analysis
+Analyze methodology suitability for specific context.
+
+**Constraints:**
+- You MUST analyze suitability for specified context
+- You MUST consider trial phase and design
+- YOU SHOULD consider endpoint characteristics
+- YOU MUST consider sample size and power
+- YOU MUST provide context-specific recommendations
+
+### 6. Statistical Software Assessment
+Assess statistical software capabilities for methodologies.
+
+**Constraints:**
+- You MUST assess SAS capabilities
+- You MUST assess R capabilities
+- YOU SHOULD assess Python capabilities
+- YOU MUST identify software limitations
+- YOU MUST provide software recommendations
+
+### 7. Recommendation Generation
+Generate methodology recommendations based on analysis.
+
+**Constraints:**
+- You MUST provide context-specific recommendations
+- You MUST provide rationale for recommendations
+- YOU SHOULD consider multiple factors
+- YOU MUST identify implementation considerations
+- YOU MUST provide clear guidance
+
+### 8. User Interaction Preparation
+Prepare user interaction for methodology confirmation.
+
+**Constraints:**
+- You MUST prepare clear interaction prompt
+- You MUST provide complete methodology information
+- YOU MUST provide multiple selection options
+- YOU MUST ask relevant clarifying questions
+- YOU MUST ensure transparency
+
+### 9. Comprehensive Report Generation
+Generate comprehensive report with all findings.
+
+**Constraints:**
+- You MUST generate comprehensive report
+- You MUST include all relevant methodologies
+- YOU MUST include regulatory acceptance information
+- YOU MUST include methodology comparison
+- YOU MUST include recommendations
+- YOU MUST include user interaction prompt
+- YOU MUST ensure complete transparency
+
+## Constraints and Best Practices
+
+### MUST Requirements
+- You MUST retrieve information from official regulatory sources
+- You MUST assess regulatory acceptance for each methodology
+- You MUST provide complete methodology information
+- You MUST require user confirmation for methodology selection
+- You MUST provide complete transparency about methodology constraints
+- You MUST identify all limitations and risks
+- You MUST document all sources
+
+### SHOULD Recommendations
+- You SHOULD retrieve information from multiple sources
+- You SHOULD provide comparative analysis
+- You SHOULD consider different regulatory agencies
+- You SHOULD provide implementation guidance
+- You SHOULD consider statistical properties
+
+### MAY Options
+- You MAY provide case studies or examples
+- YOU MAY provide simulation results
+- YOU MAY suggest alternative methodologies
+- YOU MAY provide training or educational resources
+
+## Error Handling
+
+### Common Issues and Solutions
+
+**Issue**: Methodology domain not supported
+- **Solution:** Document unsupported domain, suggest alternatives, request clarification
+
+**Issue**: Regulatory acceptance unclear
+- **Solution:** Document uncertainty, recommend regulatory interaction, provide best available information
+
+**Issue**: Conflicting information from sources
+- **Solution:** Document conflicts, identify most authoritative source, note uncertainty
+
+**Issue**: Methodology not suitable for specified context
+- **Solution:** Document limitations, provide alternatives, explain rationale
+
+## Integration Examples
+
+### Calling from SOP
+```markdown
+
+1. Statistical Methodology Information Retrieval
+Retrieve statistical methodology information with regulatory acceptance assessment.
+
+Constraints:
+
+- You MUST call statistical_methodology_intelligence with methodology_domain and application_context
+- You MUST retrieve all relevant methodologies and their regulatory acceptance
+- YOU MUST provide complete methodology information and comparison
+- YOU MUST prepare user interaction prompt for methodology confirmation
+- YOU MUST NOT automatically select any methodology
+- YOU MUST require user to specify or confirm methodology choices
+- YOU MUST ensure complete transparency about methodology constraints
+```
+
+
+### MCP Tool Integration
+This skill can be exposed as an MCP tool with the following interface:
+- Tool name: `retrieve_statistical_methodology`
+- Parameters: methodology_domain, application_context, trial_type, endpoint_type, methodology_name, regulatory_agency
+- Returns: Comprehensive statistical methodology information with regulatory acceptance and user interaction prompt
+
+## Quality Assurance
+
+### Pre-Execution Checks
+- Verify methodology_domain is supported
+- Confirm application_context is relevant
+- Validate trial_type if provided
+- Check endpoint_type if provided
+- Ensure access to methodology information sources
+
+### Post-Execution Validation
+- Verify information is from official sources
+- Confirm regulatory acceptance is accurately assessed
+- Validate all methodologies are correctly identified
+- Check that methodology comparison is balanced
+- Ensure user interaction prompt is clear and complete
+- Verify report is comprehensive and transparent
+
+### Documentation Requirements
+- Document all sources and retrieval dates
+- Preserve all methodology information and regulatory acceptance data
+- Maintain clear audit trail of analysis
+- Generate comprehensive report
+- Document all assumptions and limitations
+- Ensure complete transparency
+
+...

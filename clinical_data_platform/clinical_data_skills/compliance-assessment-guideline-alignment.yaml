@@ -1,0 +1,639 @@
+---
+name: compliance_assessment_guideline_alignment
+description: "Comprehensively assesses compliance of clinical trial documents, analyses, and methodologies with the latest regulatory guidelines, technical standards, and statistical methodology standards. It provides multi-dimensional compliance assessment including regulatory compliance, technical compliance, and methodology compliance. This skill ensures complete transparency about compliance status, identifies gaps, and provides actionable recommendations with mandatory user confirmation of assessment criteria."
+version: "1.0.0"
+author: "Compliance Assessment Expert"
+tags: [compliance assessment, regulatory compliance, technical compliance, methodology compliance, gap analysis, regulatory submission]
+---
+
+# Compliance Assessment and Guideline Alignment Skill
+
+## Overview
+This skill provides comprehensive compliance assessment of clinical trial documents, analyses, and methodologies with the latest regulatory guidelines, technical standards, and statistical methodology standards. It performs multi-dimensional compliance assessment including regulatory compliance, technical compliance, and methodology compliance. It ensures complete transparency about compliance status, identifies gaps, and provides actionable recommendations with mandatory user confirmation of assessment criteria and versions used.
+
+## Usage
+Use this skill when you need to:
+- Assess regulatory compliance of clinical trial documents
+- Evaluate technical compliance of data and code
+- Validate methodology compliance with statistical standards
+- Prepare for regulatory submissions
+- Identify compliance gaps and risks
+- Generate compliance improvement recommendations
+- Perform pre-submission compliance checks
+- Ensure alignment with latest guidelines and standards
+
+## Core Capabilities
+
+### Regulatory Compliance Assessment
+- **ICH Guidelines Compliance**: ICH E8, E9, E6, E2, E3, etc.
+- **FDA Guidance Compliance**: FDA guidance documents and regulations
+- **EMA Guidelines Compliance**: EMA guidelines and reflection papers
+- **PMDA Requirements Compliance**: PMDA guidelines and requirements
+- **NMPA Requirements Compliance**: NMPA guidelines and requirements
+- **CDISC Standards Compliance**: SDTMIG, ADaMIG, TAUGs, etc.
+
+### Technical Compliance Assessment
+- **Data Standards Compliance**: CDISC data structure and format
+- **Validation Rules Compliance**: CDISC validation rules
+- **Programming Standards Compliance**: Code quality and documentation
+- **System Architecture Compliance**: Security, performance, scalability
+- **Data Quality Compliance**: Data integrity, completeness, consistency
+
+### Methodology Compliance Assessment
+- **Statistical Methods Compliance**: Alignment with ICH E9 and agency guidance
+- **Trial Design Compliance**: Alignment with ICH E8 and agency guidance
+- **Analysis Plan Compliance**: Alignment with SAP specifications
+- **Endpoint Definition Compliance**: Alignment with protocol and SAP
+- **Multiplicity Control Compliance**: Proper adjustment for multiple comparisons
+
+### Gap Analysis and Risk Assessment
+- **Compliance Gaps**: Identify areas of non-compliance
+- **Risk Assessment**: Assess impact and severity of gaps
+- **Prioritization**: Prioritize gaps by importance and urgency
+- **Root Cause Analysis**: Identify root causes of non-compliance
+- **Impact Assessment**: Assess impact on conclusions and submissions
+
+### Recommendations and Remediation
+- **Compliance Improvement Recommendations**: Specific actions to achieve compliance
+- **Remediation Plans**: Step-by-step plans to address gaps
+- **Timeline Recommendations**: Recommended timelines for remediation
+- **Resource Requirements**: Resources needed for remediation
+- **Validation Strategies**: Strategies to validate compliance improvements
+
+## Input Format
+
+### Required Parameters
+- **assessment_target** (required): Target of compliance assessment
+  - Examples: "clinical_trial_document", "analysis_dataset", "statistical_analysis", "system_architecture"
+  
+- **target_content** (required): Content to be assessed
+  - Examples: file paths, document content, analysis results, system specifications
+
+### Optional Parameters
+- **guideline_type** (optional): Type of guideline or standard
+  - Examples: "ICH E9", "CDISC SDTMIG", "FDA Guidance"
+  
+- **guideline_version** (required): Specific guideline version
+  - Must be provided by user, cannot be auto-selected
+  - If not provided, must call regulatory_guidelines_intelligence first
+  
+- **regulatory_agency** (required): Target regulatory agency
+  - Examples: "FDA", "EMA", "PMDA", "NMPA"
+  
+- **assessment_scope** (optional): Scope of assessment
+  - Examples: "full", "regulatory_only", "technical_only", "methodology_only"
+  
+- **assessment_date** (optional): Date of assessment
+  - Default: current date
+
+## Output Format
+
+### Compliance Assessment Report Structure
+```json
+{
+"assessment_metadata": {
+"assessment_id": "COMP-2026-04-01-001",
+"assessment_timestamp": "2026-04-01T10:00:00Z",
+"assessment_parameters": {
+"assessment_target": "clinical_trial_document",
+"target_content": "/documents/study_protocol.pdf",
+"guideline_type": "ICH E9",
+"guideline_version": "1998",
+"regulatory_agency": "FDA",
+"assessment_scope": "full",
+"assessment_date": "2026-04-01"
+},
+"assessment_criteria_confirmed": true,
+"version_confirmation": {
+"guideline_version": "1998",
+"version_specified_by": "user",
+"user_confirmed": true,
+"confirmation_timestamp": "2026-04-01T09:55:00Z"
+}
+},
+"guideline_used": {
+"type": "ICH E9",
+"version": "1998",
+"full_name": "Statistical Principles for Clinical Trials",
+"issuing_organization": "ICH",
+"issue_date": "1998-02-05",
+"status": "current",
+"supplement": "E9(R1) Addendum on Estimands and Sensitivity Analysis (2019)",
+"regulatory_acceptance": {
+"FDA": {
+"accepts_this_version": true,
+"acceptance_status": "fully_accepted",
+"notes": "ICH E9 is fully accepted by FDA",
+"supplement_consideration": "E9(R1) addendum is recommended for new trials"
+},
+"EMA": {
+"accepts_this_version": true,
+"acceptance_status": "fully_accepted",
+"notes": "ICH E9 is fully accepted by EMA",
+"supplement_consideration": "E9(R1) addendum is strongly recommended"
+}
+},
+"version_constraints": {
+"acceptance_status": "current",
+"no_expiry_date": true,
+"supplement_recommended": true,
+"key_considerations": [
+"E9(R1) addendum provides important updates on estimands",
+"Regulators expect consideration of E9(R1) for new trials",
+"E9(R1) is particularly relevant for missing data handling"
+]
+}
+},
+"compliance_assessment": {
+"overall_compliance_status": "compliant_with_recommendations",
+"overall_compliance_score": 0.88,
+"compliance_by_dimension": {
+"regulatory_compliance": {
+"status": "compliant",
+"score": 0.92,
+"assessed_guidelines": ["ICH E9", "ICH E8", "FDA Guidance"],
+"compliance_details": {
+"ich_e9_compliance": {
+"status": "compliant",
+"assessed_sections": [
+"Section 2: Considerations for Overall Clinical Development",
+"Section 3: Design Considerations",
+"Section 4: Data Analysis Considerations",
+"Section 5: Evaluation of Safety and Tolerability"
+],
+"findings": [
+{
+"section": "Section 3: Design Considerations",
+"compliance_status": "compliant",
+"details": "Trial design aligns with ICH E9 principles",
+"evidence": "Protocol Section 2.1 describes randomized, double-blind, parallel-group design"
+},
+{
+"section": "Section 4: Data Analysis Considerations",
+"compliance_status": "compliant_with_recommendation",
+"details": "Statistical methods align with ICH E9, but E9(R1) addendum on estimands should be considered",
+"evidence": "SAP Section 4.2 describes ANCOVA analysis, but estimands are not explicitly defined",
+"recommendation": "Consider defining estimands per ICH E9(R1) addendum"
+}
+]
+},
+"ich_e8_compliance": {
+"status": "compliant",
+"assessed_sections": [
+"Section 2: General Principles",
+"Section 3: Considerations for Specific Phases"
+],
+"findings": [
+{
+"section": "Section 2: General Principles",
+"compliance_status": "compliant",
+"details": "Trial objectives and endpoints are clearly defined",
+"evidence": "Protocol Section 1.1 clearly states primary and secondary objectives"
+}
+]
+}
+}
+},
+"technical_compliance": {
+"status": "compliant_with_minor_issues",
+"score": 0.85,
+"assessed_standards": ["CDISC SDTMIG 3.3", "CDISC ADaMIG 1.1"],
+"compliance_details": {
+"cdisc_sdtmig_compliance": {
+"status": "compliant",
+"version_used": "3.3",
+"assessed_domains": ["DM", "AE", "LB", "VS"],
+"findings": [
+{
+"domain": "DM",
+"compliance_status": "compliant",
+"details": "DM domain structure complies with SDTMIG 3.3",
+"variables_checked": ["USUBJID", "SUBJID", "RFICDTC", "RFXSTDTC"],
+"validation_results": "All required variables present and correctly formatted"
+},
+{
+"domain": "AE",
+"compliance_status": "compliant",
+"details": "AE domain structure complies with SDTMIG 3.3",
+"variables_checked": ["USUBJID", "AETERM", "AESEV", "AEREL"],
+"validation_results": "All required variables present and correctly formatted"
+}
+]
+},
+"cdisc_adamig_compliance": {
+"status": "compliant_with_minor_issue",
+"version_used": "1.1",
+"assessed_datasets": ["ADSL", "ADAE", "ADLB"],
+"findings": [
+{
+"dataset": "ADSL",
+"compliance_status": "compliant",
+"details": "ADSL dataset structure complies with ADaMIG 1.1",
+"key_variables_present": true
+},
+{
+"dataset": "ADAE",
+"compliance_status": "compliant_with_minor_issue",
+"details": "ADAE dataset mostly complies, but ASEQ variable derivation should be documented more clearly",
+"minor_issue": "ASEQ derivation logic needs clarification in define.xml"
+}
+]
+}
+}
+},
+"methodology_compliance": {
+"status": "compliant_with_recommendations",
+"score": 0.87,
+"assessed_standards": ["ICH E9", "FDA Statistical Guidance"],
+"compliance_details": {
+"statistical_methods": {
+"status": "compliant",
+"assessed_methods": ["ANCOVA", "MMRM", "Logistic Regression"],
+"findings": [
+{
+"method": "ANCOVA",
+"compliance_status": "compliant",
+"details": "ANCOVA appropriately applied for continuous endpoint",
+"assumptions_checked": true,
+"model_specification": "Treatment + Baseline as covariate"
+},
+{
+"method": "MMRM",
+"compliance_status": "compliant",
+"details": "MMRM appropriately applied for longitudinal analysis",
+"covariance_structure": "Unstructured",
+"missing_data_handling": "MAR assumption"
+}
+]
+},
+"multiplicity_control": {
+"status": "compliant",
+"method": "Hierarchical testing",
+"details": "Appropriate multiplicity adjustment for multiple endpoints",
+"type_i_error_control": "Maintained at 0.05"
+},
+"missing_data_handling": {
+"status": "compliant_with_recommendation",
+"primary_method": "MMRM",
+"sensitivity_methods": ["Multiple Imputation", "Complete Case Analysis"],
+"recommendation": "Consider adding pattern-mixture model as additional sensitivity analysis per ICH E9(R1)"
+}
+}
+}
+}
+},
+"identified_gaps": [
+{
+"gap_id": "GAP-001",
+"category": "methodology_compliance",
+"severity": "low",
+"description": "Estimands not explicitly defined per ICH E9(R1) addendum",
+"impact": "Minor - Regulators may request clarification on estimands",
+"regulatory_implications": "FDA and EMA expect consideration of ICH E9(R1) for new trials",
+"root_cause": "SAP was developed before ICH E9(R1) addendum was widely adopted",
+"recommendation": "Add estimands section to SAP or create separate estimands document",
+"priority": "medium",
+"effort_required": "low",
+"timeline": "Can be completed within 2 weeks"
+},
+{
+"gap_id": "GAP-002",
+"category": "technical_compliance",
+"severity": "low",
+"description": "ASEQ variable derivation in ADAE needs clearer documentation",
+"impact": "Minor - May require clarification during regulatory review",
+"regulatory_implications": "Clear documentation required for regulatory submission",
+"root_cause": "Derivation logic documented in code but not in define.xml",
+"recommendation": "Add detailed derivation logic to define.xml for ASEQ variable",
+"priority": "low",
+"effort_required": "very_low",
+"timeline": "Can be completed within 3 days"
+}
+],
+"compliance_improvement_recommendations": {
+"high_priority": [],
+"medium_priority": [
+{
+"recommendation_id": "REC-001",
+"gap_id": "GAP-001",
+"action": "Define estimands per ICH E9(R1) addendum",
+"details": [
+"Define primary estimand for primary endpoint",
+"Define intercurrent event handling strategies",
+"Define sensitivity estimands",
+"Document estimand framework in SAP or separate document"
+],
+"resources_required": ["Biostatistician time", "Clinical input"],
+"estimated_effort": "1-2 weeks",
+"recommended_timeline": "Before database lock",
+"validation_strategy": "Review with regulatory affairs, include in CSR"
+}
+],
+"low_priority": [
+{
+"recommendation_id": "REC-002",
+"gap_id": "GAP-002",
+"action": "Clarify ASEQ derivation in define.xml",
+"details": [
+"Add detailed derivation logic for ASEQ",
+"Include reference to derivation code",
+"Provide examples of ASEQ values"
+],
+"resources_required": ["CDISC specialist time"],
+"estimated_effort": "1-2 days",
+"recommended_timeline": "Before submission",
+"validation_strategy": "Review with CDISC specialist, validate against ADaMIG"
+}
+]
+},
+"version_upgrade_recommendations": {
+"current_versions": {
+"ICH_E9": "1998",
+"CDISC_SDTMIG": "3.3",
+"CDISC_ADAMIG": "1.1"
+},
+"latest_versions": {
+"ICH_E9": "1998 with E9(R1) addendum (2019)",
+"CDISC_SDTMIG": "3.3",
+"CDISC_ADAMIG": "1.1"
+},
+"upgrade_required": false,
+"upgrade_recommended": true,
+"upgrade_details": [
+{
+"component": "ICH E9",
+"current": "1998",
+"latest": "1998 with E9(R1) addendum",
+"upgrade_required": false,
+"upgrade_recommended": true,
+"benefits": [
+"Alignment with current regulatory expectations",
+"Improved estimands framework",
+"Better handling of intercurrent events",
+"Enhanced sensitivity analysis framework"
+],
+"effort": "low",
+"timeline": "1-2 weeks"
+}
+]
+},
+"regulatory_submission_readiness": {
+"overall_readiness": "ready_with_minor_improvements",
+"readiness_score": 0.88,
+"readiness_by_agency": {
+"FDA": {
+"readiness_status": "ready_with_minor_improvements",
+"readiness_score": 0.88,
+"key_considerations": [
+"ICH E9(R1) addendum consideration recommended",
+"All other ICH guidelines compliant",
+"CDISC standards compliant"
+]
+},
+"EMA": {
+"readiness_status": "ready_with_minor_improvements",
+"readiness_score": 0.87,
+"key_considerations": [
+"ICH E9(R1) addendum strongly recommended",
+"All other ICH guidelines compliant",
+"CDISC standards compliant"
+]
+}
+},
+"submission_timeline_recommendations": {
+"ready_for_submission_after": "Minor improvements completed (2-3 weeks)",
+"critical_path_items": ["Estimands definition", "ASEQ documentation"],
+"recommended_submission_date": "2026-05-01 or later"
+}
+},
+"important_notes": [
+"This assessment was performed using ICH E9 (1998) version as specified by user",
+"ICH E9(R1) addendum (2019) is recommended but not required",
+"All CDISC standards (SDTMIG 3.3, ADaMIG 1.1) are compliant",
+"Minor improvements recommended to align with current regulatory expectations",
+"Overall compliance is good with minor gaps identified",
+"Regulatory submission is feasible after addressing medium-priority recommendations"
+],
+"assumptions_and_limitations": [
+"Assessment based on provided documents and analysis results",
+"Assumes user-specified guideline version (ICH E9 1998) is correct for submission",
+"Does not include assessment of raw data quality",
+"Does not include assessment of statistical programming code quality",
+"Regulatory acceptance may vary based on specific agency requirements"
+],
+"next_steps": [
+"1. Review and confirm identified gaps",
+"2. Prioritize recommendations based on submission timeline",
+"3. Implement medium-priority recommendations (estimands definition)",
+"4. Implement low-priority recommendations (ASEQ documentation)",
+"5. Re-assess compliance after improvements",
+"6. Prepare regulatory submission package"
+],
+"references": [
+{
+"source": "ICH",
+"document": "E9: Statistical Principles for Clinical Trials",
+"version": "1998",
+"url": "https://ich.org/page/quality-guidelines" ,
+"access_date": "2026-04-01"
+},
+{
+"source": "ICH",
+"document": "E9(R1): Addendum on Estimands and Sensitivity Analysis",
+"version": "2019",
+"url": "https://ich.org/page/quality-guidelines" ,
+"access_date": "2026-04-01"
+}
+]
+}
+```
+
+## Implementation Steps
+
+### 1. Assessment Parameter Validation
+Validate all input parameters.
+
+**Constraints:**
+- You MUST validate assessment_target is supported
+- You MUST validate target_content is accessible
+- You MUST validate guideline_version is provided
+- You MUST validate regulatory_agency is supported
+- You MUST NOT proceed without required parameters
+
+### 2. Guideline Version Confirmation
+Confirm guideline version with user.
+
+**Constraints:**
+- You MUST confirm guideline_version is specified by user
+- You MUST NOT auto-select any version
+- You MUST document version confirmation
+- You MUST provide version information and constraints
+- You MUST ensure transparency about version used
+
+### 3. Regulatory Compliance Assessment
+Assess compliance with regulatory guidelines.
+
+**Constraints:**
+- You MUST assess compliance with specified guideline version
+- You MUST assess all relevant sections
+- You MUST document evidence for compliance assessment
+- You MUST identify any non-compliance
+- You MUST provide specific findings
+
+### 4. Technical Compliance Assessment
+Assess technical compliance with standards.
+
+**Constraints:**
+- You MUST assess compliance with technical standards
+- You MUST validate data structure and format
+- You MUST check validation rules
+- You MUST identify any technical non-compliance
+- You MUST provide specific findings
+
+### 5. Methodology Compliance Assessment
+Assess methodology compliance with standards.
+
+**Constraints:**
+- You MUST assess statistical methods compliance
+- You MUST assess trial design compliance
+- You MUST assess analysis plan compliance
+- You MUST identify any methodology non-compliance
+- You MUST provide specific findings
+
+### 6. Gap Analysis and Risk Assessment
+Identify gaps and assess risks.
+
+**Constraints:**
+- You MUST identify all compliance gaps
+- You MUST assess severity of each gap
+- You MUST assess impact of each gap
+- You MUST assess regulatory implications
+- You MUST prioritize gaps by importance
+
+### 7. Recommendation Generation
+Generate compliance improvement recommendations.
+
+**Constraints:**
+- You MUST provide specific recommendations for each gap
+- You MUST prioritize recommendations
+- You MUST estimate effort and timeline
+- You MUST identify required resources
+- You MUST provide validation strategies
+
+### 8. Regulatory Submission Readiness Assessment
+Assess readiness for regulatory submission.
+
+**Constraints:**
+- You MUST assess overall submission readiness
+- You MUST assess readiness by agency
+- You MUST identify critical path items
+- You MUST provide timeline recommendations
+- You MUST ensure realistic assessment
+
+### 9. Comprehensive Report Generation
+Generate comprehensive compliance assessment report.
+
+**Constraints:**
+- You MUST generate comprehensive report
+- You MUST include all assessment dimensions
+- YOU MUST include all identified gaps
+- YOU MUST include all recommendations
+- YOU MUST include version information
+- YOU MUST ensure complete transparency
+- YOU MUST document all assumptions and limitations
+
+## Constraints and Best Practices
+
+### MUST Requirements
+- You MUST use user-specified guideline version
+- You MUST NOT auto-select any version
+- You MUST confirm version with user
+- You MUST assess all compliance dimensions
+- You MUST identify all gaps and risks
+- You MUST provide specific and actionable recommendations
+- You MUST ensure complete transparency
+- You MUST document all assumptions and limitations
+
+### SHOULD Recommendations
+- You SHOULD provide balanced assessment
+- You SHOULD consider regulatory agency expectations
+- You SHOULD provide realistic timelines
+- You SHOULD prioritize recommendations appropriately
+- You SHOULD consider resource constraints
+
+### MAY Options
+- You MAY provide alternative approaches
+- YOU MAY suggest additional assessments
+- YOU MAY provide benchmarking information
+- YOU MAY suggest best practices
+
+## Error Handling
+
+### Common Issues and Solutions
+
+**Issue**: Guideline version not provided
+- **Solution:** Request user to provide version, do not auto-select, explain importance
+
+**Issue**: Target content not accessible
+- **Solution:** Document unavailability, request alternative content, provide partial assessment
+
+**Issue**: Compliance criteria unclear
+- **Solution:** Document uncertainty, request clarification, provide best available assessment
+
+**Issue**: Multiple guideline versions applicable
+- **Solution:** Document all applicable versions, request user to specify, assess against specified version
+
+## Integration Examples
+
+### Calling from SOP
+```markdown
+
+1. Compliance Assessment and Guideline Alignment
+Perform comprehensive compliance assessment with guideline alignment.
+
+Constraints:
+
+- You MUST call compliance_assessment_guideline_alignment with assessment_target, target_content, guideline_version, and regulatory_agency
+- You MUST confirm guideline_version is specified by user
+- You MUST NOT auto-select any version
+- YOU MUST assess all compliance dimensions (regulatory, technical, methodology)
+- YOU MUST identify all gaps and risks
+- YOU MUST provide specific and actionable recommendations
+- YOU MUST ensure complete transparency about version used and assessment criteria
+- YOU MUST document all assumptions and limitations
+```
+
+
+### MCP Tool Integration
+This skill can be exposed as an MCP tool with the following interface:
+- Tool name: `assess_compliance_guideline_alignment`
+- Parameters: assessment_target, target_content, guideline_type, guideline_version, regulatory_agency, assessment_scope, assessment_date
+- Returns: Comprehensive compliance assessment report with gap analysis and recommendations
+
+## Quality Assurance
+
+### Pre-Execution Checks
+- Verify assessment_target is supported
+- Confirm target_content is accessible
+- Validate guideline_version is provided
+- Confirm regulatory_agency is supported
+- Ensure access to guideline and standard information
+
+### Post-Execution Validation
+- Verify assessment is based on user-specified version
+- Confirm all compliance dimensions are assessed
+- Validate all gaps are identified and prioritized
+- Check that recommendations are specific and actionable
+- Ensure report is comprehensive and transparent
+- Verify all assumptions and limitations are documented
+
+### Documentation Requirements
+- Document all assessment criteria
+- Preserve all evidence for compliance findings
+- Maintain clear audit trail of assessment
+- Generate comprehensive report
+- Document all assumptions and limitations
+- Ensure complete transparency
+- Preserve version confirmation records
+
+...

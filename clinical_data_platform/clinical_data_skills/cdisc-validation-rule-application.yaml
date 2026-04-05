@@ -1,0 +1,525 @@
+---
+name: cdisc_validation_rule_application
+description: "Automates the process of running CDISC compliance checks on datasets (SDTM, ADaM, Define-XML) using standard validation rules (e.g., Pinnacle 21 engine). It then parses the validation report, categorizes issues, and provides actionable suggestions for resolution."
+version: "1.0.0"
+author: "CDISC Validation Expert"
+tags: [cdisc, validation, pinnacle 21, quality control, compliance, submission, data quality]
+---
+
+# CDISC Validation Rule Application Skill
+
+## Overview
+This skill automates the comprehensive CDISC compliance validation process for clinical trial datasets. It integrates with standard validation tools like Pinnacle 21, executes validation checks, parses validation reports, categorizes issues by severity and type, and provides actionable resolution suggestions. This skill is essential for ensuring data submission readiness and regulatory compliance.
+
+## Usage
+Use this skill when you need to:
+- Perform pre-submission CDISC compliance validation
+- Conduct automated quality control on SDTM and ADaM datasets
+- Validate Define-XML files against dataset content
+- Generate compliance reports for regulatory submissions
+- Identify and categorize data quality issues
+- Provide actionable recommendations for issue resolution
+- Support database lock and submission preparation activities
+
+## Core Capabilities
+
+### External Tool Integration
+- **Pinnacle 21 Integration**: Interfaces with Pinnacle 21 Community/Enterprise validation engine
+- **Command Line Execution**: Executes validation tools through command line interfaces or APIs
+- **Configuration Management**: Manages validation configurations and rule sets
+- **Version Control**: Supports multiple CDISC standard versions (SDTMIG 3.2, 3.3; ADaMIG 1.0, 1.1)
+- **Batch Processing**: Handles multiple datasets and validation rules in batch mode
+
+### Validation Task Execution
+- **Dataset Validation**: Validates SDTM and ADaM datasets against CDISC standards
+- **Define-XML Validation**: Checks Define-XML files for consistency with dataset content
+- **Rule-Based Checking**: Applies standard CDISC validation rules (e.g., SD1117, AD0001)
+- **Custom Rule Support**: Supports custom validation rules and sponsor-specific checks
+- **Cross-Dataset Validation**: Performs cross-dataset consistency checks
+- **Controlled Terminology Validation**: Verifies correct usage of CDISC controlled terminology
+
+### Validation Report Intelligent Parsing
+- **Multi-Format Support**: Parses validation reports in various formats (Excel, XML, JSON)
+- **Issue Extraction**: Extracts individual validation issues with full context
+- **Structured Data Conversion**: Converts unstructured report data into structured format
+- **Metadata Preservation**: Maintains issue metadata (rule ID, severity, description, location)
+- **Source Identification**: Identifies specific datasets, variables, and records with issues
+- **Error Context**: Preserves contextual information for each issue
+
+### Issue Categorization and Analysis
+- **Severity Classification**: Categorizes issues by severity:
+  - **Critical**: Errors that must be resolved before submission
+  - **Major**: Significant issues that should be resolved
+  - **Minor**: Issues that should be reviewed and addressed
+  - **Warning**: Informational items that may not require action
+- **Type Classification**: Groups issues by type:
+  - **Structural**: Dataset structure and organization issues
+  - **Variable**: Variable definition and attribute issues
+  - **Value**: Data value and format issues
+  - **Relationship**: Relationship and referential integrity issues
+  - **Terminology**: Controlled terminology usage issues
+- **Risk Assessment**: Evaluates potential impact on submission and analysis
+- **Priority Ranking**: Prioritizes issues based on severity and impact
+
+### Solution Recommendation
+- **Knowledge Base Integration**: Maintains knowledge base of common validation issues and solutions
+- **Automated Suggestions**: Provides automated resolution suggestions for common issues:
+  - Date format corrections
+  - Missing required variables
+  - Controlled terminology errors
+  - Variable length violations
+  - Referential integrity issues
+- **Code Examples**: Generates example code snippets for common fixes
+- **Documentation References**: Provides references to relevant CDISC implementation guides
+- **Best Practice Guidance**: Offers best practice recommendations for complex issues
+
+### Report Generation and Issue Tracking
+- **Executive Summary**: Generates concise management-level summary reports
+- **Detailed Issue Reports**: Creates comprehensive reports with all validation findings
+- **Issue Tracking Tables**: Produces actionable issue tracking tables in CSV or Jira import format
+- **Visual Dashboards**: Creates visual representations of validation results
+- **Trend Analysis**: Identifies patterns and trends in validation issues
+- **Progress Tracking**: Monitors issue resolution progress over time
+
+## Input Format
+
+### Required Parameters
+- **dataset_path** (required): Path to CDISC datasets
+  - File path or directory containing CDISC datasets
+
+- `define_xml_path`: Path to Define-XML file
+- **cdisc_standard_version** (required): CDISC standard version
+  - Must be specified by user
+  - Examples:
+    - {"standard": "SDTMIG", "version": "3.3"}
+    - {"standard": "ADaMIG", "version": "1.1"}
+  - If not provided, must call regulatory_guidelines_intelligence first
+
+- **regulatory_agency** (required): Target regulatory agency
+  - Examples: "FDA", "EMA", "PMDA", "NMPA"
+
+### Optional Parameters
+- `validation_tool`: Validation tool to use ("pinnacle21", "opensource", "custom")
+- `custom_rules`: Path to custom validation rules file
+- `output_format`: Output format for reports ("JSON", "Excel", "HTML", "PDF")
+- `include_suggestions`: Whether to include resolution suggestions (default: true)
+- `severity_filter`: Filter issues by minimum severity level
+- **validation_level** (optional): Validation level
+  - Examples: "basic", "standard", "comprehensive"
+
+## Output Format
+
+### Validation Report Structure
+
+```json
+{
+"validation_metadata": {
+"validation_id": "CDISC-VALID-2026-04-01-001",
+"validation_timestamp": "2026-04-01T10:00:00Z",
+"cdisc_standard": {
+"standard": "SDTMIG",
+"version": "3.3",
+"version_specified_by": "user"
+},
+"regulatory_agency": "FDA"
+},
+"regulatory_considerations": {
+"cdisc_standard_used": "SDTMIG 3.3",
+"validation_rules_applied": […],
+"recent_updates": […]
+},
+"validation_results": {
+"overall_status": "passed",
+"domains_validated": […],
+"errors": [],
+"warnings": […]
+},
+"compliance_assessment": {
+"overall_compliance_status": "compliant",
+"compliance_score": 0.95,
+"identified_gaps": [],
+"recommendations": […]
+},
+"user_interaction_required": true,
+"interaction_prompt": {
+"title": "Please confirm your CDISC standard version",
+"context": "Based on your requirements, I recommend SDTMIG 3.3…",
+"available_options": […]
+}
+}
+```
+
+
+### Validation Summary Structure
+
+```json
+{
+"validation_summary": {
+"validation_date": "2026-04-01",
+"validation_tool": "Pinnacle 21 Community",
+"cdisc_standard": "SDTMIG 3.3, ADaMIG 1.1",
+"datasets_validated": [
+"DM.xpt",
+"AE.xpt",
+"ADSL.xpt",
+"ADLB.xpt"
+],
+"total_issues": 47,
+"issue_breakdown": {
+"critical": 3,
+"major": 12,
+"minor": 18,
+"warning": 14
+},
+"issue_types": {
+"structural": 5,
+"variable": 15,
+"value": 18,
+"relationship": 6,
+"terminology": 3
+},
+"datasets_with_issues": 4,
+"compliance_score": 0.78
+},
+"critical_issues": [
+{
+"issue_id": "VAL-001",
+"rule_id": "SD0001",
+"severity": "critical",
+"dataset": "DM.xpt",
+"variable": "USUBJID",
+"record_count": 5,
+"description": "Duplicate USUBJID values found in DM domain",
+"location": "DM domain, records 23, 45, 67, 89, 112",
+"impact": "Subjects with duplicate identifiers will cause referential integrity issues",
+"suggestion": "Review subject identification logic, ensure unique USUBJID assignment",
+"code_example": "/* Check for duplicate USUBJID */\nproc freq data=dm;\n tables usubjid / noprint out=dup_counts(drop=percent);\nrun;\nproc print data=dup_counts(where=(count>1));\nrun;",
+"reference": "SDTMIG 3.3 Section 4.1.2.1"
+}
+],
+"major_issues": [
+{
+"issue_id": "VAL-002",
+"rule_id": "SD1117",
+"severity": "major",
+"dataset": "AE.xpt",
+"variable": "AESTDTC",
+"record_count": 23,
+"description": "Date format does not match ISO 8601 standard",
+"location": "AE domain, AESTDTC variable",
+"impact": "Date format inconsistencies may cause processing errors",
+"suggestion": "Convert all date variables to ISO 8601 format (YYYY-MM-DDThh:mm:ss)",
+"code_example": "/* Convert date format to ISO 8601 */\ndata ae_fixed;\n set ae;\n aestdtc = put(datepart(aestdtc), yymmdd10.) || 'T' || put(timepart(aestdtc), time8.);\nrun;",
+"reference": "CDISC SDTMIG 3.3 Section 2.2.1"
+}
+],
+"issue_tracking_table": {
+"format": "CSV",
+"columns": [
+"Issue ID",
+"Rule ID",
+"Severity",
+"Dataset",
+"Variable",
+"Description",
+"Record Count",
+"Suggested Resolution",
+"Assigned To",
+"Status",
+"Priority"
+],
+"sample_rows": [
+{
+"issue_id": "VAL-001",
+"rule_id": "SD0001",
+"severity": "critical",
+"dataset": "DM.xpt",
+"variable": "USUBJID",
+"description": "Duplicate USUBJID values found",
+"record_count": 5,
+"suggested_resolution": "Review subject identification logic",
+"assigned_to": "",
+"status": "Open",
+"priority": "P0"
+}
+]
+}
+}
+
+```
+
+
+### HTML Report Structure
+
+```html
+
+<!DOCTYPE html> <html> <head> <title>CDISC Validation Report</title> <style> /* Report styling */ .critical { color: red; font-weight: bold; } .major { color: orange; font-weight: bold; } .minor { color: blue; } .warning { color: gray; } </style> </head> <body> <h1>CDISC Validation Report</h1> <h2>Validation Summary</h2>
+<div class="summary-metrics">
+    <div class="metric">
+        <h3>Total Issues</h3>
+        <p class="total">47</p>
+    </div>
+    <div class="metric">
+        <h3>Critical</h3>
+        <p class="critical">3</p>
+    </div>
+    <div class="metric">
+        <h3>Major</h3>
+        <p class="major">12</p>
+    </div>
+    <div class="metric">
+        <h3>Compliance Score</h3>
+        <p class="score">78%</p>
+    </div>
+</div>
+
+<h2>Issue Breakdown by Type</h2>
+<!-- Charts and tables -->
+
+<h2>Critical Issues</h2>
+<div class="issue critical">
+    <h3>VAL-001: Duplicate USUBJID values</h3>
+    <p><strong>Rule:</strong> SD0001</p>
+    <p><strong>Dataset:</strong> DM.xpt</p>
+    <p><strong>Description:</strong> Duplicate USUBJID values found in DM domain</p>
+    <p><strong>Impact:</strong> Subjects with duplicate identifiers will cause referential integrity issues</p>
+    <p><strong>Suggested Resolution:</strong> Review subject identification logic, ensure unique USUBJID assignment</p>
+</div>
+
+<h2>Issue Tracking Table</h2>
+<!-- Downloadable CSV table -->
+</body> </html>
+```
+
+
+## Implementation Steps
+
+### 0. Pre-Validation: CDISC Standard Version Confirmation (NEW)
+Confirm CDISC standard version with user before proceeding.
+
+**Constraints:**
+- You MUST confirm cdisc_standard_version is specified by user
+- If cdisc_standard_version is not provided:
+  - You MUST call `regulatory_guidelines_intelligence` with:
+    - guideline_type: "CDISC SDTMIG"
+    - regulatory_agency: [user-specified agency]
+    - time_point: "current"
+  - You MUST present available CDISC versions to user
+  - You MUST request user to specify version
+  - You MUST NOT auto-select any version
+- You MUST document version confirmation
+- You MUST ensure transparency about version used
+
+### 1. Regulatory Guidelines Retrieval (NEW)
+Retrieve latest CDISC validation rules and requirements.
+
+**Constraints:**
+- You MUST call `regulatory_guidelines_intelligence` with:
+  - guideline_type: "CDISC SDTMIG" (or ADaMIG)
+  - guideline_version: [user-specified version]
+  - regulatory_agency: [user-specified agency]
+- You MUST retrieve CDISC validation rules
+- You MUST identify any recent updates or changes
+- You MUST document regulatory considerations
+
+### 2. Validation Environment Setup
+- Verify validation tool installation and configuration
+- Check CDISC standard version compatibility
+- Configure validation rules and parameters
+- Set up output directories and file paths
+- Validate input dataset accessibility
+
+### 3. Validation Task Execution
+- Construct validation command with appropriate parameters:
+  - Data directory path
+  - Define-XML file path
+  - CDISC standard version
+  - Validation rule set
+  - Output format and location
+- Execute validation tool through command line or API
+- Monitor validation task execution status
+- Handle execution errors and exceptions
+- Retrieve generated validation report
+
+### 4. Compliance Assessment (NEW)
+Assess overall compliance of datasets.
+
+**Constraints:**
+- You MUST call `compliance_assessment_guideline_alignment` with:
+  - assessment_target: "analysis_dataset"
+  - target_content: [dataset_path]
+  - guideline_type: "CDISC SDTMIG" (or ADaMIG)
+  - guideline_version: [user-specified version]
+  - regulatory_agency: [user-specified agency]
+  - assessment_scope: "technical_only"
+- You MUST assess technical compliance
+- You MUST identify any compliance gaps
+- You MUST provide remediation recommendations
+
+### 5. Validation Report Parsing
+- Load validation report file (Excel, XML, or JSON)
+- Parse report structure and extract individual issues
+- Extract issue metadata:
+  - Rule ID and description
+  - Severity level
+  - Affected dataset and variable
+  - Record counts and locations
+  - Error messages and context
+- Convert parsed data into structured format
+- Preserve source references and traceability
+
+### 46 Issue Categorization and Analysis
+- Classify issues by severity:
+  - **Critical**: Errors preventing submission or analysis
+  - **Major**: Significant issues affecting data quality
+  - **Minor**: Issues that should be addressed
+  - **Warning**: Informational items
+- Categorize issues by type:
+  - **Structural**: Dataset organization issues
+  - **Variable**: Variable definition issues
+  - **Value**: Data value issues
+  - **Relationship**: Referential integrity issues
+  - **Terminology**: Controlled terminology issues
+- Assess potential impact on submission and analysis
+- Prioritize issues based on severity and impact
+
+### 7. Solution Recommendation Generation
+- Match issues against knowledge base of common problems
+- Generate automated suggestions for well-known issues:
+  - **Date Format Issues**: Provide conversion code examples
+  - **Missing Variables**: Suggest variable creation or mapping
+  - **Controlled Terminology**: Provide correct terminology mappings
+  - **Length Violations**: Suggest variable length adjustments
+  - **Referential Integrity**: Identify relationship problems
+- Provide code examples for common fixes
+- Reference relevant CDISC implementation guide sections
+- Offer best practice recommendations
+- Flag complex issues requiring expert review
+
+### 8. Report Generation
+- Generate executive summary with key metrics:
+  - Total issue count by severity
+  - Issue breakdown by type
+  - Compliance score
+  - Datasets with issues
+- Create detailed issue reports with:
+  - Full issue descriptions
+  - Source locations and context
+  - Impact assessments
+  - Resolution suggestions
+- Produce issue tracking tables:
+  - CSV format for spreadsheet import
+  - Jira import format for issue tracking
+  - Include assignment and status fields
+- Generate visual representations:
+  - Issue distribution charts
+  - Severity breakdown graphs
+  - Dataset comparison charts
+- Create downloadable reports in multiple formats
+
+## Constraints and Best Practices
+
+### MUST Requirements
+- You MUST use standard validation tools (Pinnacle 21, Open Source)
+- You MUST validate against specified CDISC standard versions
+- You MUST parse and categorize all validation issues
+- You MUST provide severity classification for all issues
+- You MUST generate actionable resolution suggestions
+- YOU MUST preserve source traceability for all issues
+- YOU MUST produce comprehensive validation reports
+
+### SHOULD Recommendations
+- You SHOULD use knowledge base for common issue resolution
+- You SHOULD provide code examples for common fixes
+- You SHOULD reference relevant CDISC implementation guides
+- You SHOULD generate reports in multiple formats for different users
+- You SHOULD prioritize issues based on severity and impact
+- You SHOULD track validation history and trends
+- You SHOULD integrate with issue tracking systems
+
+### MAY Options
+- You MAY suggest alternative validation approaches
+- You MAY provide recommendations for process improvements
+- You MAY identify patterns in validation issues across studies
+- YOU MAY suggest additional validation rules or checks
+- YOU MAY provide training materials for common issues
+
+## Error Handling
+
+### Common Issues and Solutions
+
+**Issue**: Validation tool execution fails
+- **Solution**: Check tool installation, verify file paths, review error logs, try alternative validation methods
+
+**Issue**: Validation report cannot be parsed
+- **Solution**: Verify report format, check for file corruption, try alternative parsing methods, request manual review
+
+**Issue**: Too many issues generated
+- **Solution**: Filter by severity, prioritize critical issues, group similar issues, provide summary statistics
+
+**Issue**: Solution suggestions are not applicable
+- **Solution**: Flag for expert review, provide general guidance, reference documentation, suggest consultation
+
+**Issue**: Validation takes too long
+- **Solution**: Optimize validation parameters, use incremental validation, parallelize validation tasks, suggest performance improvements
+
+## Integration Examples
+
+### Calling from SOP
+
+```markdown
+
+5. CDISC Validation and Compliance Check
+Perform comprehensive CDISC compliance validation on datasets.
+
+Constraints:
+
+You MUST call cdisc_validation_rule_application with data_dir, define_xml_path, and cdisc_standard
+You MUST validate all SDTM and ADaM datasets
+YOU SHOULD categorize all issues by severity and type
+YOU MUST provide actionable resolution suggestions for each issue
+YOU MAY recommend process improvements based on validation patterns
+YOU MUST generate comprehensive validation reports
+YOU SHOULD create issue tracking tables for resolution management
+```
+
+
+### MCP Tool Integration
+This skill can be exposed as an MCP tool with the following interface:
+- Tool name: `run_cdisc_validation`
+- Parameters: data_dir, define_xml_path, cdisc_standard, validation_tool, output_format
+- Returns: Comprehensive validation report with issue categorization and resolution suggestions
+
+## Quality Assurance
+
+### Pre-Execution Checks
+- Verify validation tool is properly installed and configured
+- Confirm all input datasets are accessible and readable
+- Validate that Define-XML file exists and is well-formed
+- Check that CDISC standard version is supported
+- Ensure output directory exists and is writable
+
+### Post-Execution Validation
+- Verify validation report was generated successfully
+- Confirm all issues were extracted and categorized
+- Validate that severity classifications are appropriate
+- Check that resolution suggestions are actionable
+- Ensure reports are complete and accurate
+- Verify issue tracking tables are properly formatted
+
+### Documentation Requirements
+- Maintain clear audit trail of validation activities
+- Document all validation parameters and configurations
+- Preserve source references for all identified issues
+- Generate comprehensive validation summary
+- Provide clear guidance for issue resolution
+- Track validation history and trends over time
+
+## Regulatory Compliance
+
+### CDISC Standards
+- Follow CDISC SDTMIG and ADaMIG validation requirements
+- Apply standard CDISC validation rules
+- Ensure compliance with
+
+...

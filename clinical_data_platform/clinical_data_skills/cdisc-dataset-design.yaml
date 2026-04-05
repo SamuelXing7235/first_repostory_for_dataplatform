@@ -1,0 +1,563 @@
+---
+name: cdisc_dataset_design
+description: "Designs CDISC-compliant SDTM and ADaM datasets based on source data specifications (like annotated CRF) and the Statistical Analysis Plan (SAP). It generates dataset specifications, including domain, variable names, labels, types, and mapping logic."
+version: "1.0.0"
+author: "CDISC Standards Expert"
+tags: [cdisc, sdtm, adam, data standards, submission, mapping, clinical data]
+---
+
+# CDISC Dataset Design Skill
+
+## Overview
+This skill specializes in designing CDISC-compliant clinical trial datasets. It bridges the gap between source data (CRF) and regulatory submission requirements by creating detailed dataset specifications for both SDTM and ADaM standards. This skill is essential for ensuring data submission readiness and regulatory compliance.
+
+## Usage
+Use this skill when you need to:
+- Design SDTM domains from annotated CRF
+- Create ADaM dataset specifications based on SAP
+- Generate mapping specifications between source and target variables
+- Ensure compliance with CDISC implementation guides
+- Prepare dataset documentation for regulatory submission
+- Support data standardization and interoperability initiatives
+
+## Core Capabilities
+
+### Input Understanding and Analysis
+- **Multi-Document Integration**: Receives and analyzes Annotated CRF, Protocol, SAP, and blank CRF as inputs
+- **Document Parsing**: Calls `doc_understand_structured` skill to extract key information from each document
+- **Requirement Synthesis**: Combines requirements from protocol objectives, SAP analysis plans, and CRF data collection points
+- **Standard Version Management**: Identifies applicable CDISC standard versions (SDTMIG, ADaMIG) and therapeutic area guidelines
+
+### SDTM Dataset Design
+- **Domain Identification**: Analyzes aCRF and Protocol to identify required SDTM domains (DM, AE, LB, VS, etc.)
+- **Variable Structure Design**: For each domain, designs variable structures according to CDISC SDTM IG specifications
+- **Mapping Specification Generation**: Creates SDTM mapping specifications in Excel or CSV format, clearly listing:
+  - Target SDTM domain and variable names
+  - Variable labels, types, and controlled terminology
+  - Source CRF form and field references
+  - Preliminary conversion logic and transformation rules
+- **Domain Relationships**: Establishes relationships between domains (RELREC, SUPPQUAL)
+- **Controlled Terminology**: Applies appropriate CDISC controlled terminology (CT) for codelisted variables
+
+### ADaM Dataset Design
+- **Analysis Requirements Analysis**: Analyzes SAP to understand analysis endpoints and methods
+- **Dataset Planning**: Determines which ADaM datasets need to be created:
+  - ADSL (Subject-Level Analysis Dataset) - always required
+  - BDS (Basic Data Structure) datasets for specific analyses
+  - OCCDS (Other-Clinically Relevant Data Structure) as needed
+  - ADTTE (Time-to-Event) for survival analyses
+  - ADAE for safety analyses
+- **ADSL Design**: Designs ADSL dataset containing:
+  - Key demographic information
+  - Treatment variables and flags
+  - Population flags (SAFFL, EFFL, etc.)
+  - Study dates and durations
+- **BDS Dataset Design**: For each major analysis, designs BDS datasets defining:
+  - Parameter variables (PARAM, PARAMCD)
+  - Analysis values (AVAL) and analysis baseline values (BASE)
+  - Change from baseline (CHG) and derived variables
+  - Core variables and their derivation logic
+- **Traceability Documentation**: Generates ADaM specifications detailing:
+  - Dataset structure and purpose
+  - Variable derivation rules
+  - Source traceability to SDTM or original datasets
+  - Analysis population definitions
+
+### Risk and Compliance Assessment
+- **Standard Compliance**: Evaluates design compliance with CDISC implementation guides
+- **Therapeutic Area Considerations**: Identifies therapeutic area-specific requirements (TAUGs)
+- **Risk Assessment**: Assesses compliance risks for specific scenarios:
+  - Non-standard data types
+  - Complex endpoint definitions
+  - Unusual study designs
+- **Gap Analysis**: Identifies gaps between CRF data collection and analysis requirements
+- **Recommendation Generation**: Provides recommendations for:
+  - Additional data collection if needed
+  - Alternative mapping approaches
+  - Documentation requirements for complex mappings
+
+## Input Format
+
+### Required Parameters
+- **study_design_document** (required): Study design document
+  - File path or content of study design
+  
+- **cdisc_standard_version** (required): CDISC standard version
+  - Must be specified by user
+  - Examples:
+    - {"standard": "SDTMIG", "version": "3.3"}
+    - {"standard": "ADaMIG", "version": "1.1"}
+  - If not provided, must call regulatory_guidelines_intelligence first
+  
+- **regulatory_agency** (required): Target regulatory agency
+  - Examples: "FDA", "EMA", "PMDA", "NMPA"
+- `acrf_path`: Path to Annotated CRF document
+- `sap_path`: Path to Statistical Analysis Plan
+- `design_target`: Target design type ("SDTM", "ADaM", or "BOTH")
+
+### Optional Parameters
+- `protocol_path`: Path to Protocol document for additional context
+- `blank_crf_path`: Path to blank CRF for reference
+- `therapeutic_area`: Therapeutic area for TAUG-specific requirements
+- `output_format`: Output format for specifications ("Excel", "CSV", "JSON")
+- **domain_specific_requirements** (optional): Domain-specific requirements
+  - Examples: {"domains": ["DM", "AE", "LB"], "special_variables": [...]}
+
+## Output Format
+
+```json
+{
+"design_metadata": {
+"design_id": "CDISC-DESIGN-2026-04-01-001",
+"design_timestamp": "2026-04-01T10:00:00Z",
+"cdisc_standard": {
+"standard": "SDTMIG",
+"version": "3.3",
+"version_specified_by": "user"
+},
+"regulatory_agency": "FDA"
+},
+"regulatory_considerations": {
+"cdisc_standard_used": "SDTMIG 3.3",
+"key_requirements": […],
+"recent_updates": […],
+"regulatory_acceptance_notes": […]
+},
+"dataset_design": {
+"domains": […],
+"variables": […],
+"relationships": […]
+},
+"compliance_assessment": {
+"overall_compliance_status": "compliant",
+"compliance_score": 0.95,
+"identified_gaps": [],
+"recommendations": […]
+},
+"user_interaction_required": true,
+"interaction_prompt": {
+"title": "Please confirm your CDISC standard version",
+"context": "Based on your requirements, I recommend SDTMIG 3.3…",
+"available_options": […]
+}
+}
+```
+
+
+### CDISC Dataset Design Report Structure
+
+### SDTM Specification Structure
+
+```json
+{
+"sdtm_specifications": [
+{
+"domain": "DM",
+"domain_name": "Demographics",
+"description": "Demographics and baseline characteristics",
+"variables": [
+{
+"variable_name": "STUDYID",
+"label": "Study Identifier",
+"type": "character",
+"length": 12,
+"controlled_terminology": null,
+"origin": "Protocol",
+"mapping_logic": "Direct value from protocol study identifier",
+"source_form": null,
+"source_field": null
+},
+{
+"variable_name": "USUBJID",
+"label": "Unique Subject Identifier",
+"type": "character",
+"length": 20,
+"controlled_terminology": null,
+"origin": "CRF.DEMOGRAPHICS.SUBJECT_ID",
+"mapping_logic": "Concatenate SITEID and SUBJID",
+"source_form": "Demographics",
+"source_field": "Subject ID"
+},
+{
+"variable_name": "SUBJID",
+"label": "Subject Identifier for the Study",
+"type": "character",
+"length": 10,
+"controlled_terminology": null,
+"origin": "CRF.DEMOGRAPHICS.SUBJECT_ID",
+"mapping_logic": "Subject ID as collected in CRF",
+"source_form": "Demographics",
+"source_field": "Subject ID"
+}
+]
+},
+{
+"domain": "AE",
+"domain_name": "Adverse Events",
+"description": "Adverse Events",
+"variables": [
+{
+"variable_name": "AETERM",
+"label": "Reported Term for the Adverse Event",
+"type": "character",
+"length": 200,
+"controlled_terminology": "MedDRA",
+"origin": "CRF.ADVERSE_EVENTS.AE_TERM",
+"mapping_logic": "Map to preferred term using MedDRA dictionary",
+"source_form": "Adverse Events",
+"source_field": "AE Term"
+}
+]
+}
+],
+"mapping_summary": {
+"total_domains": 8,
+"total_variables": 156,
+"mapping_coverage": "98.5%",
+"unmapped_fields": 2,
+"complex_mappings": 15
+}
+}
+
+```
+
+
+### ADaM Specification Structure
+
+``` json
+{
+"adam_specifications": [
+{
+"dataset": "ADSL",
+"description": "Subject-Level Analysis Dataset",
+"structure": "One record per subject",
+"key_variables": ["STUDYID", "USUBJID", "TRT01P"],
+"variables": [
+{
+"variable_name": "TRT01P",
+"label": "Planned Treatment for Period 01",
+"type": "character",
+"derivation_logic": "Derived from DM actual treatment arm",
+"source_dataset": "DM",
+"source_variable": "ARM",
+"notes": "Treatment as planned at randomization"
+},
+{
+"variable_name": "TRT01PN",
+"label": "Planned Treatment for Period 01 (N)",
+"type": "character",
+"derivation_logic": "Treatment code corresponding to TRT01P",
+"source_dataset": "DM",
+"source_variable": "ARMCD",
+"notes": "Standardized treatment code"
+},
+{
+"variable_name": "AGE",
+"label": "Age",
+"type": "numeric",
+"derivation_logic": "Calculate from BRTHDT and RFICDT",
+"source_dataset": "DM",
+"source_variable": "BRTHDT, RFICDT",
+"notes": "Age at first treatment"
+},
+{
+"variable_name": "SAFFL",
+"label": "Safety Population Flag",
+"type": "character",
+"derivation_logic": "Y if subject received at least one dose of study medication, otherwise null",
+"source_dataset": "EX",
+"source_variable": "EXDOS",
+"notes": "Based on exposure data"
+}
+]
+},
+{
+"dataset": "ADLB",
+"description": "Basic Data Structure for Laboratory Data",
+"structure": "One record per subject per parameter per visit",
+"key_variables": ["STUDYID", "USUBJID", "PARAMCD", "AVISITN"],
+"parameters": [
+{
+"paramcd": "ALT",
+"param": "Alanine Aminotransferase",
+"parcat1": "Chemistry",
+"aval_source": "LBSTRESN",
+"base_source": "First non-missing value at baseline",
+"chg_derivation": "AVAL - BASE",
+"source_dataset": "LB",
+"source_variables": ["LBSTRESN", "LBTESTCD", "AVISITN"]
+}
+]
+}
+],
+"traceability_summary": {
+"total_datasets": 3,
+"total_variables": 45,
+"traceability_coverage": "100%",
+"complex_derivations": 8,
+"population_flags": 5
+}
+}
+```
+
+
+## Implementation Steps
+
+### 0. Pre-Design: CDISC Standard Version Confirmation (NEW)
+Confirm CDISC standard version with user before proceeding.
+
+**Constraints:**
+- You MUST confirm cdisc_standard_version is specified by user
+- If cdisc_standard_version is not provided:
+  - You MUST call `regulatory_guidelines_intelligence` with:
+    - guideline_type: "CDISC SDTMIG"
+    - regulatory_agency: [user-specified agency]
+    - time_point: "current"
+  - You MUST present available CDISC versions to user
+  - You MUST request user to specify version
+  - You MUST NOT auto-select any version
+- You MUST document version confirmation
+- You MUST ensure transparency about version used
+
+### 1. Regulatory Guidelines Retrieval (NEW)
+Retrieve latest CDISC standards and regulatory requirements.
+
+**Constraints:**
+- You MUST call `regulatory_guidelines_intelligence` with:
+  - guideline_type: "CDISC SDTMIG" (or ADaMIG)
+  - guideline_version: [user-specified version]
+  - regulatory_agency: [user-specified agency]
+- You MUST retrieve CDISC standard requirements
+- You MUST identify any recent updates or changes
+- You MUST document regulatory considerations
+
+### 2. Document Analysis and Information Extraction
+- Call `doc_understand_structured` skill to parse input documents
+- Extract key information from Annotated CRF:
+  - Form structure and field definitions
+  - Variable names, labels, and data types
+  - Data collection schedules and visits
+- Extract analysis requirements from SAP:
+  - Analysis populations and subgroups
+  - Primary and secondary endpoints
+  - Statistical analysis methods
+  - TFL specifications
+- Extract study design information from Protocol:
+  - Study objectives and design
+  - Treatment arms and randomization
+  - Inclusion/exclusion criteria
+  - Schedule of assessments
+
+### 3. SDTM Domain Design
+- Identify required SDTM domains based on data collection:
+  - DM (Demographics) - always required
+  - AE (Adverse Events) if safety data collected
+  - LB (Laboratory) if lab tests performed
+  - VS (Vital Signs) if vital signs measured
+  - EX (Exposure) if treatment administration recorded
+  - Other domains as needed (CM, DS, MH, etc.)
+- For each domain:
+  - Design variable structure following SDTMIG specifications
+  - Determine required and optional variables
+  - Identify controlled terminology requirements
+  - Create mapping specifications from CRF fields
+  - Document derivation logic for calculated variables
+
+### 4. SDTM Mapping Specification Generation
+- Create detailed mapping specifications:
+  - Target SDTM domain and variable
+  - Source CRF form and field
+  - Data type and format conversions
+  - Controlled terminology mapping
+  - Derivation logic for calculated variables
+- Generate mapping tables in Excel or CSV format
+- Document complex mappings with detailed explanations
+- Identify unmapped CRF fields for review
+
+### 5. ADaM Dataset Design
+- Analyze SAP to determine analysis requirements:
+  - Identify all planned analyses and endpoints
+  - Determine required analysis populations
+  - Understand subgroup and stratification needs
+- Design ADSL dataset:
+  - Include key demographic and baseline variables
+  - Add treatment variables and flags
+  - Create population flags (SAFFL, EFFL, PPFL, etc.)
+  - Include study dates and durations
+- Design BDS datasets for major analyses:
+  - Define parameters (PARAM, PARAMCD) for each endpoint
+  - Specify analysis values (AVAL) and baseline values (BASE)
+  - Derive change from baseline (CHG) variables
+  - Include analysis flags and visit information
+- Design other ADaM datasets as needed:
+  - ADTTE for time-to-event analyses
+  - ADAE for safety analyses
+  - OCCDS for special requirements
+
+### 6. Compliance Assessment (NEW)
+Assess compliance of designed datasets with CDISC standards.
+
+**Constraints:**
+- You MUST call `compliance_assessment_guideline_alignment` with:
+  - assessment_target: "analysis_dataset"
+  - target_content: [designed dataset specifications]
+  - guideline_type: "CDISC SDTMIG" (or ADaMIG)
+  - guideline_version: [user-specified version]
+  - regulatory_agency: [user-specified agency]
+  - assessment_scope: "technical_only"
+- You MUST assess technical compliance
+- You MUST identify any compliance gaps
+- You MUST provide remediation recommendations
+
+### 7. ADaM Specification Generation
+- Generate detailed ADaM specifications:
+  - Dataset structure and purpose
+  - Variable definitions and attributes
+  - Derivation logic for all calculated variables
+  - Source traceability to SDTM datasets
+  - Analysis population definitions
+- Document parameter coding and categorization
+- Create variable derivation flowcharts
+- Identify complex derivations requiring special attention
+
+### 8. Quality and Compliance Review
+- Verify compliance with CDISC standards:
+  - SDTMIG compliance for SDTM datasets
+  - ADaMIG compliance for ADaM datasets
+  - Therapeutic area user guide (TAUG) requirements
+- Assess traceability and documentation:
+  - Ensure all variables have clear source traceability
+  - Verify derivation logic is well-documented
+  - Check that controlled terminology is correctly applied
+- Identify potential risks and issues:
+  - Non-standard data types or mappings
+  - Complex derivations that may be error-prone
+  - Gaps between CRF collection and analysis needs
+- Generate compliance and risk assessment report
+
+## Constraints and Best Practices
+
+### MUST Requirements
+- You MUST confirm cdisc_standard_version with user before proceeding
+- You MUST NOT auto-select any CDISC standard version
+- You MUST call regulatory_guidelines_intelligence for latest CDISC standards
+- You MUST call compliance_assessment_guideline_alignment for compliance assessment
+- You MUST provide complete transparency about versions used
+- You MUST ensure all datasets comply with specified CDISC standard
+- You MUST document all regulatory considerations
+- You MUST follow specified CDISC implementation guide version (SDTMIG, ADaMIG)
+- You MUST ensure all required variables are included in specifications
+- You MUST maintain clear traceability from source to target variables
+- You MUST use standard CDISC variable naming conventions
+- You MUST apply controlled terminology correctly for codelisted variables
+- You MUST document all derivation logic clearly and completely
+- You MUST identify and flag any non-standard mappings or complex derivations
+
+### SHOULD Recommendations
+- You SHOULD optimize dataset structures for analysis efficiency
+- You SHOULD document complex derivation logic with examples
+- You SHOULD consider future analysis needs in design
+- You SHOULD validate designs against CDISC validation rules
+- You SHOULD follow sponsor-specific standards when applicable
+- You SHOULD consider therapeutic area-specific requirements
+- You SHOULD provide recommendations for data collection improvements
+
+### MAY Options
+- You MAY suggest alternative dataset structures
+- You MAY identify potential optimization opportunities
+- You MAY recommend additional variables for enhanced analysis
+- You MAY provide implementation guidance and best practices
+- You MAY suggest tools or utilities to support implementation
+
+## Error Handling
+
+### Common Issues and Solutions
+
+**Issue**: Variable naming conflicts between domains
+- **Solution**: Apply qualified naming conventions, document rationale, use domain prefixes when necessary
+
+**Issue**: Complex derivation logic cannot be fully specified
+- **Solution**: Break down into steps, provide detailed documentation, recommend programmer consultation
+
+**Issue**: Missing mapping information for CRF fields
+- **Solution**: Flag for manual specification, provide context and source references, suggest data collection review
+
+**Issue**: Controlled terminology mapping is ambiguous
+- **Solution**: Document mapping rules, provide examples, recommend terminology specialist consultation
+
+**Issue**: Analysis requirements are unclear or incomplete
+- **Solution**: Identify gaps, request clarification from statistician, document assumptions
+
+## Integration Examples
+
+### Calling from SOP
+
+```markdown
+
+4. CDISC Dataset Design
+Design SDTM and ADaM datasets based on study requirements.
+
+Constraints:
+
+You MUST call cdisc_dataset_design with acrf_path, sap_path, and design_target
+You MUST generate specifications for all required SDTM domains
+You SHOULD create ADaM datasets for all planned analyses
+You MUST ensure compliance with specified CDISC standard versions
+YOU MAY suggest improvements to data collection or analysis plans
+You MUST provide clear traceability from source to target variables
+YOU SHOULD identify and document any complex mappings or derivations
+```
+
+### MCP Tool Integration
+This skill can be exposed as an MCP tool with the following interface:
+- Tool name: `design_cdisc_datasets`
+- Parameters: acrf_path, sap_path, design_target, protocol_path, cdisc_version, therapeutic_area
+- Returns: Comprehensive dataset specifications with mapping logic and compliance assessment
+
+## Quality Assurance
+
+### Pre-Execution Checks
+- Verify all input documents are accessible and readable
+- Confirm CDISC standard version is specified and supported
+- Validate that therapeutic area is identified if TAUG-specific requirements exist
+- Check that output format is valid and supported
+
+### Post-Execution Validation
+- Review generated specifications for completeness and accuracy
+- Verify all required variables are included
+- Confirm mapping logic is clear and implementable
+- Validate that traceability is maintained throughout
+- Ensure compliance with CDISC standards
+- Check that all complex derivations are well-documented
+
+### Documentation Requirements
+- Maintain clear file naming conventions
+- Include comprehensive comments in specifications
+- Document all assumptions and design decisions
+- Provide source references for all mappings
+- Generate summary reports with key metrics
+- Include recommendations for implementation
+
+## Regulatory Compliance
+
+### CDISC Standards
+- Follow SDTM Implementation Guide (SDTMIG) specifications
+- Follow ADaM Implementation Guide (ADaMIG) standards
+- Apply relevant therapeutic area user guides (TAUGs)
+- Use standard CDISC controlled terminology
+- Maintain compliance with FDA and EMA submission requirements
+
+### GCP Considerations
+- Ensure data integrity and traceability requirements are met
+- Support audit trail and documentation needs
+- Facilitate reproducibility of data transformations
+- Enable validation and verification processes
+
+### Best Practices
+- Follow industry best practices for CDISC implementation
+- Implement efficient and maintainable data structures
+- Support regulatory submission preparation
+- Enable data review and quality assessment
+- Facilitate cross-study data sharing and comparison
+
+...

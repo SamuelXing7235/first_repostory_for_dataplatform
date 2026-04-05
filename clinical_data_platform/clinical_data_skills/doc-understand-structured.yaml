@@ -1,0 +1,309 @@
+---
+name: doc_understand_structured
+description: "Extracts and structures key information from clinical trial documents like Protocol, SAP, CRF, CSR, and regulatory guidelines. Ideal for parsing specific sections such as objectives, endpoints, study design, inclusion/exclusion criteria, schedule of assessments, and submission requirements."
+version: "1.0.0"
+author: "Clinical Data Expert"
+tags: [document understanding, protocol, sap, crf, parsing, extraction, clinical trial, regulatory]
+---
+
+# Structured Document Understanding Skill
+
+## Overview
+This skill enables AI agents to deeply understand and extract structured information from clinical trial documents across multiple formats and types. It handles various document formats and can identify key sections, extract entities, and structure the information for further processing or consistency checking.
+
+## Usage
+Use this skill when you need to:
+- Extract key information from Protocol, SAP, CRF, CSR, or regulatory documents
+- Parse specific sections like objectives, endpoints, study design, inclusion/exclusion criteria
+- Understand document structure and relationships
+- Prepare document content for consistency checking or analysis
+- Support regulatory submission preparation
+
+## Core Capabilities
+
+### Document Format Support
+- **PDF Documents**: Extract text and basic structure from PDF files
+- **Word Documents**: Parse .docx files with formatting preservation
+- **Markdown Files**: Process structured markdown documentation
+- **Text Files**: Handle plain text with basic structure recognition
+- **Excel Files**: Parse structured data and metadata from spreadsheets
+
+### Section Recognition
+Automatically identify and locate key sections across document types:
+- **Protocol**: Study Objectives, Endpoints, Study Design, Inclusion/Exclusion Criteria, Schedule of Assessments, Statistical Methods
+- **SAP**: Analysis Populations, Endpoints, Statistical Methods, TFL Specifications, Missing Data Handling
+- **CRF**: Visit schedules, Form structures, Field definitions, Data collection points
+- **CSR**: Study results, Safety summaries, Efficacy analyses, Discussion sections
+- **Regulatory Documents**: Compliance requirements, Submission guidelines, Validation rules
+
+### Entity Extraction
+Extract structured information including:
+- Primary and secondary endpoints with definitions and assessment timepoints
+- Study population characteristics and inclusion/exclusion criteria
+- Treatment arms, dosing regimens, and randomization schemes
+- Visit schedules, assessments, and data collection timepoints
+- Sample size, power calculations, and statistical assumptions
+- Statistical methods, analysis plans, and sensitivity analyses
+- Safety parameters and adverse event definitions
+- CDISC domain mappings and variable specifications
+
+## Input Format
+
+### Required Parameters
+- `file_paths`: Array of document file paths to process
+- `target_sections`: Array of section types to extract (e.g., ["endpoints", "study_design", "inclusion_criteria"])
+- `document_type`: Type of document being processed ("protocol", "sap", "crf", "csr", "regulatory")
+
+### Optional Parameters
+- `output_format`: Format for structured output (JSON, CSV, markdown) - default: "JSON"
+- `include_metadata`: Whether to include source location metadata - default: true
+- `language`: Document language for better parsing - default: "en"
+- `extraction_depth`: Level of detail ("basic", "detailed", "comprehensive") - default: "detailed"
+
+## Output Format
+
+### JSON Structure
+
+ output_json_schema: |-
+   {
+    "document_info": {
+        "file_name": "protocol_v1.0.pdf",
+        "document_type": "protocol",
+        "total_pages": 45,
+        "processing_date": "2026-04-01",
+        "version": "1.0"
+    },
+    "extracted_sections": {
+        "objectives": {
+            "primary_objective": "To evaluate the efficacy of Drug X compared to placebo",
+            "secondary_objectives": [
+                "To assess safety profile",
+                "To evaluate quality of life"
+            ],
+            "exploratory_objectives": [],
+            "source_location": "Page 3, Section 2.1"
+        },
+        "endpoints": [
+            {
+                "name": "Overall Survival",
+                "type": "primary",
+                "definition": "Time from randomization to death from any cause",
+                "assessment_timepoints": [
+                    "Baseline",
+                    "Every 3 months"
+                ],
+                "measurement_method": "Survival analysis",
+                "source_location": "Page 5, Section 2.3.1"
+            },
+            {
+                "name": "Progression-Free Survival",
+                "type": "secondary",
+                "definition": "Time from randomization to disease progression or death",
+                "assessment_timepoints": [
+                    "Baseline",
+                    "Every 6 weeks"
+                ],
+                "measurement_method": "RECIST 1.1 criteria",
+                "source_location": "Page 6, Section 2.3.2"
+            }
+        ],
+        "study_design": {
+            "type": "randomized, double-blind, placebo-controlled",
+            "phases": [
+                "Phase III"
+            ],
+            "design_type": "parallel group",
+            "arms": [
+                {
+                    "name": "Drug X",
+                    "description": "Experimental treatment",
+                    "sample_size": 150,
+                    "dosage": "10mg once daily"
+                },
+                {
+                    "name": "Placebo",
+                    "description": "Matching placebo",
+                    "sample_size": 150,
+                    "dosage": "Once daily"
+                }
+            ],
+            "randomization_method": "Stratified block randomization",
+            "stratification_factors": [
+                "Geographic region",
+                "Prior therapy"
+            ],
+            "source_location": "Page 4, Section 2.2"
+        },
+        "inclusion_criteria": [
+            {
+                "criterion": "Age ≥ 18 years",
+                "category": "demographics",
+                "source_location": "Page 8, Section 3.1.1"
+            }
+        ],
+        "exclusion_criteria": [
+            {
+                "criterion": "Prior treatment with similar mechanism",
+                "category": "medical_history",
+                "source_location": "Page 9, Section 3.1.2"
+            }
+        ],
+        "schedule_of_assessments": {
+            "visits": [
+                {
+                    "visit_name": "Screening",
+                    "day": "-28 to -1",
+                    "assessments": [
+                        "Informed consent",
+                        "Eligibility assessment",
+                        "Baseline labs"
+                    ]
+                },
+                {
+                    "visit_name": "Baseline",
+                    "day": "1",
+                    "assessments": [
+                        "Randomization",
+                        "First dose",
+                        "Safety assessments"
+                    ]
+                }
+            ],
+            "source_location": "Page 12, Section 4.0"
+        }
+    },
+    "quality_metrics": {
+        "extraction_confidence": 0.95,
+        "sections_found": 8,
+        "sections_missing": [],
+        "ambiguous_content": [],
+        "processing_time_seconds": 45.2
+    }
+   }
+
+
+## Implementation Steps
+
+### 1. Document Preprocessing
+- Load document from specified file path
+- Detect document format and apply appropriate parser
+- Extract text content and preserve basic structure
+- Clean and normalize text for processing
+- Handle special characters and encoding issues
+
+### 2. Document Type Identification
+- Analyze document structure and content patterns
+- Identify document type (Protocol, SAP, CRF, CSR, Regulatory)
+- Apply document-type-specific parsing rules
+- Load relevant templates and schemas
+
+### 3. Section Identification
+- Use pattern matching and ML models to identify document sections
+- Map sections to standard clinical trial document structure
+- Handle variations in section naming and organization
+- Flag sections that cannot be confidently identified
+- Preserve hierarchical document structure
+
+### 4. Information Extraction
+- Apply entity recognition for key clinical trial concepts
+- Extract structured data using defined patterns and rules
+- Preserve relationships between extracted entities
+- Validate extracted information against expected formats
+- Handle tables, lists, and structured content appropriately
+
+### 5. Quality Assurance
+- Assess confidence scores for extracted information
+- Identify ambiguous or unclear content
+- Flag sections requiring human review
+- Generate extraction quality report
+- Provide source location traceability
+
+## Constraints and Best Practices
+
+### MUST Requirements
+- You MUST handle all supported document formats (PDF, DOCX, MD, TXT, XLSX)
+- You MUST preserve source location information for traceability
+- You MUST validate extracted information against clinical trial standards
+- You MUST handle missing or unclear sections gracefully
+- You MUST identify document type and apply appropriate parsing rules
+- You MUST extract information systematically, not randomly
+
+### SHOULD Recommendations  
+- You SHOULD use domain-specific terminology and ontologies
+- You SHOULD provide confidence scores for extracted information
+- You SHOULD handle multilingual documents when language is specified
+- You SHOULD maintain consistency across multiple document extractions
+- You SHOULD identify potential inconsistencies or gaps
+- You SHOULD follow document-specific parsing best practices
+
+### MAY Options
+- You MAY suggest improvements to document structure
+- You MAY identify potential inconsistencies or gaps
+- You MAY provide summaries of extracted content
+- You MAY recommend related documents or sections
+- You MAY generate document comparison reports
+- You MAY create document metadata summaries
+
+## Error Handling
+
+### Common Issues and Solutions
+
+**Issue**: PDF text extraction fails
+- **Solution**: Try OCR-based extraction, flag for manual review, provide partial results
+
+**Issue**: Section identification unclear
+- **Solution**: Use multiple identification methods, request human clarification, mark as uncertain
+
+**Issue**: Entity extraction low confidence
+- **Solution**: Flag for review, provide context for human verification, suggest manual confirmation
+
+**Issue**: Document type cannot be determined
+- **Solution**: Use content analysis, request user input, apply generic parsing rules
+
+**Issue**: Complex table structure parsing
+- **Solution**: Use advanced table recognition, flag complex tables for manual review
+
+## Integration Examples
+
+### Calling from SOP
+
+```markdown
+1. Document Analysis Phase
+Extract key information from protocol document.
+
+Constraints:
+
+- You MUST call doc_understand_structured with file_paths=["protocol.pdf"]
+- You MUST set document_type="protocol"
+- You MUST target sections: ["objectives", "endpoints", "study_design", - "inclusion_criteria", "exclusion_criteria"]
+- You SHOULD validate extracted endpoints match SAP definitions
+- You MAY request additional documents if information is incomplete
+- You MUST preserve source location information for all extracted content
+```
+
+### MCP Tool Integration
+This skill can be exposed as an MCP tool with the following interface:
+- Tool name: `extract_clinical_document_info`
+- Parameters: file_paths, target_sections, document_type, output_format
+- Returns: Structured JSON with extracted information and metadata
+
+## Regulatory Compliance
+
+### GCP Considerations
+- Ensure all extracted information maintains source document integrity
+- Preserve audit trail for all extraction activities
+- Support document version control and change tracking
+
+### ICH Guidelines
+- Follow ICH E6 (GCP) for document handling requirements
+- Support ICH E9 for statistical analysis plan extraction
+- Comply with relevant therapeutic area guidelines
+
+### Data Integrity
+- Maintain source-to-extract traceability
+- Preserve original document formatting and structure
+- Support validation and verification processes
+
+...
+
+
